@@ -6,7 +6,6 @@ import {join} from 'path'
 import process from 'node:process'
 import {setHandlebarsHelpers} from "../helpers/handlebarsHelpers";
 
-const SERVER = 'http://127.0.0.1:8080'
 const pathParamRegex = /{(.*?)}/gi
 
 setHandlebarsHelpers()
@@ -82,7 +81,6 @@ const setSchema = (item: any, schemaData: any): { [key: string]: any } => {
 
 const writeOutput = (data: any[], filename = 'client') => {
     const outputDir = 'output/client'
-    console.log(join(process.cwd(), outputDir))
     if (!fs.existsSync(join(process.cwd(), outputDir))) {
         fs.mkdirSync(join(process.cwd(), outputDir), {recursive: true})
     }
@@ -96,7 +94,11 @@ const writeOutput = (data: any[], filename = 'client') => {
 
 export const generateClientCode = async (urls: string[], allowedPaths: string[] = []) => {
     for (const url of urls) {
-        let response = await axios.get(`${SERVER}${url}`)
+        const splitUrl = url.split('/')
+        const server = splitUrl.slice(0, splitUrl.length - 1).join('/')
+        const filename = splitUrl[splitUrl.length - 1]
+
+        let response = await axios.get(url)
 
         const data = YAML.parse(response.data)
 
@@ -108,7 +110,7 @@ export const generateClientCode = async (urls: string[], allowedPaths: string[] 
         let filenames = [...new Set(pathsData.map((path: any) => getSchemaRefPath(path)))]
 
         for (const filename of filenames) {
-            response = await axios.get(`${SERVER}/${filename}`)
+            response = await axios.get(`${server}/${filename}`)
             const schemaData = {[filename as string]: YAML.parse(response.data)}
 
             pathsData = setSchema(pathsData, schemaData)
@@ -122,6 +124,6 @@ export const generateClientCode = async (urls: string[], allowedPaths: string[] 
 
         data.paths = pathsData
 
-        writeOutput(data, url.slice(1).split('.')[0])
+        writeOutput(data, filename.split('.')[0])
     }
 }
