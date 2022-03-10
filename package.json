@@ -9,5 +9,9 @@
   "repository": {
     "type": "git",
     "url": "ssh://git@gitlab.local.corunet.com:122/test-training/openapi-nodejs-cli.git"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.21",
+    "typescript": "^4.6.2"
   }
 }
