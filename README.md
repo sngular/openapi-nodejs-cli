@@ -1,5 +1,11 @@
 # OpenAPI NodeJS CLI
 
+This generator requires the Node version >=17.7.1 to run properly 
+
+## Install dependencies
+To install dependencies run:
+`npm i`
+
 ## Build
 
 Build the project with `npm run build`
