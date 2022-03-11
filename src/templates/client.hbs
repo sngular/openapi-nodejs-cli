@@ -1,0 +1,22 @@
+import axios from 'axios'
+
+{{#servers}}
+const SERVER = '{{{url}}}'
+{{/servers}}
+
+{{#paths}}
+{{#if requestBody.required}}
+interface {{{operationId}}}Body {
+{{#with requestBody.content.[application/json].schema}}
+{{#each properties}}
+    {{@key}}{{#unless (includes ../required @key)}}?{{/unless}}: {{this.type}}
+{{/each}}
+{{/with}}
+}
+{{/if}}
+
+export const {{{operationId}}} = async ({{#parameters}}{{name}}: {{schema.type}}, {{/parameters}}{{#requestBody}}body: {{{../operationId}}}Body{{/requestBody}}) => {
+    return await axios.{{method}}(`${SERVER}{{{pathName}}}`{{#requestBody}}, body{{/requestBody}})
+}
+
+{{/paths}}
