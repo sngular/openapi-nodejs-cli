@@ -1,11 +1,12 @@
 import {program} from 'commander'
 import {generateClientCode} from "./client"
+import {generateServerCode} from "./server";
 
 program
     .version('0.0.1')
     .requiredOption('-u, --urls <string...>', 'OpenAPI spec URLs')
     .option('--allowed-paths <string...>', 'list of allowed paths from spec')
-    .option('--client', 'only generate client code' )
+    .option('--client', 'only generate client code')
     .option('--server', 'only generate server code (not implemented yet)')
 
 program.parse()
@@ -23,5 +24,10 @@ if (!options.client && !options.server) {
 
 if (options.client) {
     generateClientCode(urls, allowedPaths).then(_ => {
+    })
+}
+
+if (options.server) {
+    generateServerCode(urls, allowedPaths).then(_ => {
     })
 }

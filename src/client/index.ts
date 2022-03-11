@@ -1,10 +1,6 @@
-import Handlebars from 'handlebars'
 import axios from 'axios'
 import YAML from "yaml";
-import fs from 'fs'
-import {join} from 'path'
-import process from 'node:process'
-import {setHandlebarsHelpers} from "../helpers/handlebarsHelpers";
+import {setHandlebarsHelpers, writeOutputFile} from "../helpers";
 
 const pathParamRegex = /{(.*?)}/gi
 
@@ -79,19 +75,6 @@ const setSchema = (item: any, schemaData: any): { [key: string]: any } => {
     return newItem
 }
 
-const writeOutput = (data: any[], filename = 'client') => {
-    const outputDir = 'output/client'
-    if (!fs.existsSync(join(process.cwd(), outputDir))) {
-        fs.mkdirSync(join(process.cwd(), outputDir), {recursive: true})
-    }
-
-    const source = fs.readFileSync(join(process.cwd(), '/src/templates/client.hbs'), 'utf-8')
-    const template = Handlebars.compile(source)
-    const output = template(data)
-
-    fs.writeFileSync(join(process.cwd(), `/${outputDir}/${filename}.ts`), output, 'utf-8')
-}
-
 export const generateClientCode = async (urls: string[], allowedPaths: string[] = []) => {
     for (const url of urls) {
         const splitUrl = url.split('/')
@@ -124,6 +107,6 @@ export const generateClientCode = async (urls: string[], allowedPaths: string[] 
 
         data.paths = pathsData
 
-        writeOutput(data, filename.split('.')[0])
+        writeOutputFile(data, 'client', 'output/client', filename.split('.')[0])
     }
 }
