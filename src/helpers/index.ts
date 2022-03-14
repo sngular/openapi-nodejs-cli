@@ -43,3 +43,35 @@ export const getSchemaRefPath = (item: any): any => {
 
     return schemaFilename
 }
+
+export const setSchema = (item: any, schemaData: any): { [key: string]: any } => {
+    const newItem: { [key: string]: any } = {}
+    for (const key of Object.keys(item)) {
+        if (typeof item[key] !== 'object') {
+            newItem[key] = item[key]
+            continue
+        }
+
+        if (!Object.keys(item).includes('schema')) {
+            if (item[key] instanceof Array) {
+                newItem[key] = item[key]
+                continue
+            }
+
+            newItem[key] = setSchema(item[key], schemaData)
+            continue
+        }
+
+        if (!Object.keys(item.schema).includes('$ref')) {
+            newItem[key] = item[key]
+            continue
+        }
+
+        const schemaFilename = item.schema.$ref.split('#')[0]
+        if (Object.keys(schemaData).includes(schemaFilename)) {
+            newItem.schema = {...item.schema, ...schemaData[schemaFilename].components.schema}
+        }
+    }
+
+    return newItem
+}
