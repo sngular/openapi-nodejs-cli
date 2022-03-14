@@ -1,6 +1,6 @@
 import axios from 'axios'
 import YAML from "yaml";
-import {setHandlebarsHelpers, writeOutputFile} from "../helpers";
+import {getSchemaRefPath, setHandlebarsHelpers, writeOutputFile} from "../helpers";
 
 const pathParamRegex = /{(.*?)}/gi
 
@@ -14,33 +14,6 @@ const formatPathParam = (path: string): string => {
             return element
         }
     }).join('/')
-}
-
-const getSchemaRefPath = (item: any): any => {
-    let schemaFilename
-    for (const key of Object.keys(item)) {
-        if (typeof item[key] !== 'object') {
-            continue
-        }
-
-        if (!Object.keys(item).includes('schema')) {
-            schemaFilename = getSchemaRefPath(item[key])
-
-            if (schemaFilename !== undefined) {
-                return schemaFilename
-            }
-
-            continue
-        }
-
-        if (!Object.keys(item.schema).includes('$ref')) {
-            continue
-        }
-
-        schemaFilename = item.schema.$ref.split('#')[0]
-    }
-
-    return schemaFilename
 }
 
 const setSchema = (item: any, schemaData: any): { [key: string]: any } => {

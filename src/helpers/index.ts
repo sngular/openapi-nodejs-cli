@@ -16,3 +16,30 @@ export const writeOutputFile = (data: any[], templateName: 'client' | 'server', 
 
     fs.writeFileSync(path.join(process.cwd(), `/${outputDir}/${filename}.ts`), output, 'utf-8')
 }
+
+export const getSchemaRefPath = (item: any): any => {
+    let schemaFilename
+    for (const key of Object.keys(item)) {
+        if (typeof item[key] !== 'object') {
+            continue
+        }
+
+        if (!Object.keys(item).includes('schema')) {
+            schemaFilename = getSchemaRefPath(item[key])
+
+            if (schemaFilename !== undefined) {
+                return schemaFilename
+            }
+
+            continue
+        }
+
+        if (!Object.keys(item.schema).includes('$ref')) {
+            continue
+        }
+
+        schemaFilename = item.schema.$ref.split('#')[0]
+    }
+
+    return schemaFilename
+}
