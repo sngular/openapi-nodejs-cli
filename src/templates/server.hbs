@@ -1,0 +1,58 @@
+import express, { NextFunction, Request, Response } from 'express';
+
+const app = express();
+
+{{#paths}}
+{{#if requestBody.required}}
+interface {{{operationId}}}Body {
+{{#with requestBody.content.[application/json].schema}}
+{{#each properties}}
+    {{@key}}{{#unless (includes ../required @key)}}?{{/unless}}: {{this.type}}
+{{/each}}
+{{/with}}
+}
+{{/if}}
+
+{{#if requestBody.required}}
+{{#if parameters}}
+app.{{method}}('{{{pathName}}}', (req: Request<{ {{#each parameters}}{{name}}: {{schema.type}},{{/each}} }, {}, {{{operationId}}}Body>, res: Response) => {
+{{/if}}
+{{/if}}
+{{#if requestBody.required}}
+{{#unless parameters}}
+app.{{method}}('{{{pathName}}}', (req: Request<{}, {}, {{{operationId}}}Body>, res: Response) => {
+{{/unless}}
+{{/if}}
+{{#unless requestBody.required}}
+{{#if parameters}}
+app.{{method}}('{{{pathName}}}', (req: Request<{ {{#each parameters}}{{name}}: {{schema.type}},{{/each}} }>, res: Response) => {
+{{/if}}
+{{/unless}}
+{{#unless requestBody.required}}
+{{#unless parameters}}
+app.{{method}}('{{{pathName}}}', (req: Request, res: Response) => {
+{{/unless}}
+{{/unless}}
+    {{#if requestBody.required}}
+    if (
+        req.body === undefined ||
+        {{#each requestBody.content.[application/json].schema.required}}
+        req.body.{{this}} === undefined {{#unless @last}}||{{/unless}}
+        {{/each}}
+    ) {
+        res.sendStatus(400);
+        return;
+    }
+
+    {{/if}}
+    res.sendStatus(200);
+});
+
+{{/paths}}
+app.use((req: Request, res: Response, next: NextFunction) => {
+    res.sendStatus(404)
+})
+
+app.listen(3000, () => {
+    console.log('Server listening on port 3000...');
+});
