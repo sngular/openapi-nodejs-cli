@@ -1,6 +1,6 @@
 import fs from "fs"
 import path from "path"
-import process from "node:process"
+import process from "process"
 import Handlebars from "handlebars"
 
 export { setHandlebarsHelpers } from './handlebarsHelpers'
