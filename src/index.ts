@@ -26,6 +26,6 @@ if (options.client) {
 }
 
 if (options.server) {
-    generateServerCode(urls, allowedPaths).then(_ => {
+    generateServerCode(input, allowedPaths).then(_ => {
     })
 }
