@@ -3,7 +3,7 @@ import {generateClientCode} from "./client"
 
 program
     .version('0.0.1')
-    .requiredOption('-u, --urls <string...>', 'OpenAPI spec URLs')
+    .requiredOption('-i, --input <string...>', 'OpenAPI spec URLs or directories')
     .option('--allowed-paths <string...>', 'list of allowed paths from spec')
     .option('--client', 'only generate client code' )
     .option('--server', 'only generate server code (not implemented yet)')
@@ -11,9 +11,7 @@ program
 program.parse()
 const options = program.opts()
 
-console.log(options)
-
-const urls = options.urls
+const input = options.input
 const allowedPaths: string[] = options.allowedPaths
 
 if (!options.client && !options.server) {
@@ -22,6 +20,6 @@ if (!options.client && !options.server) {
 }
 
 if (options.client) {
-    generateClientCode(urls, allowedPaths).then(_ => {
+    generateClientCode(input, allowedPaths).then(_ => {
     })
 }
