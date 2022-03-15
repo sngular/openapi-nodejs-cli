@@ -4,7 +4,7 @@ const app = express();
 
 {{#paths}}
 {{#if requestBody.required}}
-interface {{{operationId}}}Body {
+interface {{capitalize filename}}{{{capitalize operationId}}}Body {
 {{#with requestBody.content.[application/json].schema}}
 {{#each properties}}
     {{@key}}{{#unless (includes ../required @key)}}?{{/unless}}: {{this.type}}
@@ -15,12 +15,12 @@ interface {{{operationId}}}Body {
 
 {{#if requestBody.required}}
 {{#if parameters}}
-app.{{method}}('{{{pathName}}}', (req: Request<{ {{#each parameters}}{{name}}: {{schema.type}},{{/each}} }, {}, {{{operationId}}}Body>, res: Response) => {
+app.{{method}}('{{{pathName}}}', (req: Request<{ {{#each parameters}}{{name}}: {{schema.type}},{{/each}} }, {}, {{capitalize filename}}{{{capitalize operationId}}}Body>, res: Response) => {
 {{/if}}
 {{/if}}
 {{#if requestBody.required}}
 {{#unless parameters}}
-app.{{method}}('{{{pathName}}}', (req: Request<{}, {}, {{{operationId}}}Body>, res: Response) => {
+app.{{method}}('{{{pathName}}}', (req: Request<{}, {}, {{capitalize filename}}{{{capitalize operationId}}}Body>, res: Response) => {
 {{/unless}}
 {{/if}}
 {{#unless requestBody.required}}

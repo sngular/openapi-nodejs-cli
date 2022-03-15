@@ -15,7 +15,7 @@ const formatPathParam = (path: string): string => {
 }
 
 export const generateServerCode = async (urls: string[], allowedPaths: string[] = []) => {
-    let outputData: any = { data: {}, filename: '' }
+    let outputData: any = {data: {}}
     for (const url of urls) {
         const splitUrl = url.split('/')
         const server = splitUrl.slice(0, splitUrl.length - 1).join('/')
@@ -27,7 +27,9 @@ export const generateServerCode = async (urls: string[], allowedPaths: string[] 
 
         let pathsData: any = Object.keys(data.paths).map(key => Object.keys(data.paths[key]).map(method => ({
             pathName: formatPathParam(key),
-            method, ...data.paths[key][method]
+            method,
+            filename: filename.split('.')[0],
+            ...data.paths[key][method]
         }))).flat()
 
         let filenames = [...new Set(pathsData.map((path: any) => getSchemaRefPath(path)))]
@@ -49,7 +51,7 @@ export const generateServerCode = async (urls: string[], allowedPaths: string[] 
         if (outputData.data.paths !== undefined) {
             outputData.data.paths = [...Object.values(outputData.data.paths), ...Object.values(data.paths)]
         } else {
-            outputData = {data, filename}
+            outputData = {data}
         }
     }
 
