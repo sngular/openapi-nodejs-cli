@@ -7,7 +7,7 @@ program
     .requiredOption('-u, --urls <string...>', 'OpenAPI spec URLs')
     .option('--allowed-paths <string...>', 'list of allowed paths from spec')
     .option('--client', 'only generate client code')
-    .option('--server', 'only generate server code (not implemented yet)')
+    .option('--server', 'only generate server code')
 
 program.parse()
 const options = program.opts()

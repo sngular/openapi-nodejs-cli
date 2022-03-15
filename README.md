@@ -15,7 +15,7 @@ To view usage of the cli run:
 - `-u <string...>`: list of URLs to the list of OpenAPI specification used to generate the code
 - `--allowed-paths <string..>`: list of paths allowed to be used to generate the code
 - `--client`: generate client code only
-- `--server`: generate server code only (Not implemented yet)
+- `--server`: generate server code only
 
 If `--client` and `--server` are not set, both client and server code will be generated.
 
