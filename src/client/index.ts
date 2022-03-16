@@ -1,6 +1,8 @@
 import axios from 'axios'
 import YAML from "yaml";
 import {getSchemaRefPath, setHandlebarsHelpers, setSchema, writeOutputFile} from "../helpers";
+import fs from 'fs'
+import {join} from 'path'
 
 const pathParamRegex = /{(.*?)}/gi
 
