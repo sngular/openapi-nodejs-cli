@@ -14,7 +14,7 @@ export const writeOutputFile = (data: any[], templateName: 'client' | 'server', 
     const template = Handlebars.compile(source)
     const output = template(data)
 
-    log(`Writing ${templateName} output file on ${path.join(process.cwd(), outputDir)} as ${filename}.ts`)
+    log(`Writing ${templateName} output file on ${path.join(process.cwd(), outputDir)} as ${filename}.ts`, templateName)
 
     fs.writeFileSync(path.join(process.cwd(), `/${outputDir}/${filename}.ts`), output, 'utf-8')
 }

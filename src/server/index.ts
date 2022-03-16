@@ -1,6 +1,6 @@
 import axios from 'axios'
 import YAML from 'yaml'
-import {getSchemaRefPath, setHandlebarsHelpers, setSchema, writeOutputFile} from '../helpers'
+import {getSchemaRefPath, log, setHandlebarsHelpers, setSchema, writeOutputFile} from '../helpers'
 import fs from "fs"
 import {join} from "path"
 
@@ -17,6 +17,8 @@ const formatPathParam = (path: string): string => {
 }
 
 export const generateServerCode = async (urls: string[], allowedPaths: string[] = []) => {
+    log("Generating server code", 'server')
+
     let outputData: any = {data: {}}
     for (const url of urls) {
         const splitUrl = url.split('/')
@@ -26,10 +28,12 @@ export const generateServerCode = async (urls: string[], allowedPaths: string[] 
 
         let file: string = ''
         if (url.startsWith('http')) {
+            log(`Getting OpenAPI specification file from ${url}`, 'server')
             isUrl = true
             let response = await axios.get(url)
             file = response.data
         } else {
+            log(`Reading OpenAPI specification file from ${url}`, 'server')
             file = fs.readFileSync(url, "utf-8")
         }
 
@@ -46,12 +50,14 @@ export const generateServerCode = async (urls: string[], allowedPaths: string[] 
 
         for (const filename of filenames) {
             if (isUrl) {
+                log(`Getting schema file from ${server}/${filename}`, 'server')
                 const response = await axios.get(`${server}/${filename}`)
                 const schemaData = {[filename as string]: YAML.parse(response.data)}
 
                 pathsData = setSchema(pathsData, schemaData)
             } else {
                 const newUrl = url.split('/').slice(0, -1).join('/')
+                log(`Reading schema file from ${join(newUrl, (filename as string))}`, 'server')
                 const file = fs.readFileSync(join(newUrl, (filename as string)), "utf-8")
                 const schemaData = {[filename as string]: YAML.parse(file)}
 
