@@ -75,3 +75,8 @@ export const setSchema = (item: any, schemaData: any): { [key: string]: any } =>
 
     return newItem
 }
+
+export const log = (msg: string, type: string = 'info'): void => {
+    const time = new Date().toLocaleTimeString()
+    console.log(`[${type.toUpperCase()}] ${time} - ${msg}`)
+}
