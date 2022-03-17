@@ -8,7 +8,9 @@
     "clean": "rm -rf build output",
     "build": "tsc",
     "start": "node build/index.js",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "lint": "eslint src/**/*.ts",
+    "fix": "eslint src/**/*.ts --fix"
   },
   "repository": {
     "type": "git",
@@ -16,6 +18,7 @@
   },
   "devDependencies": {
     "@types/node": "^17.0.21",
+    "@typescript-eslint/parser": "^5.15.0",
     "eslint": "^8.11.0",
     "eslint-plugin-prettier": "^4.0.0",
     "prettier": "^2.6.0",
