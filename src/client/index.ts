@@ -1,8 +1,12 @@
-import axios from 'axios'
 import YAML from "yaml";
-import { getFilenameAndServer, getSchemaRefPath, getSpecificationFile, setSchema, writeOutputFile } from "../helpers";
-import fs from 'fs'
-import {join} from 'path'
+import {
+    getFilenameAndServer,
+    getSchemaData,
+    getSchemaRefPath,
+    getSpecificationFile,
+    setSchema,
+    writeOutputFile
+} from "../helpers";
 
 const pathParamRegex = /{(.*?)}/gi
 
@@ -31,18 +35,8 @@ export const generateClientCode = async (urls: string[], allowedPaths: string[] 
         let filenames = [...new Set(pathsData.map((path: any) => getSchemaRefPath(path)))]
 
         for (const filename of filenames) {
-            if (isUrl) {
-                const response = await axios.get(`${server}/${filename}`)
-                const schemaData = {[filename as string]: YAML.parse(response.data)}
-
-                pathsData = setSchema(pathsData, schemaData)
-            } else {
-                const newUrl = url.split('/').slice(0, -1).join('/')
-                const file = fs.readFileSync(join(newUrl, (filename as string)), 'utf-8')
-                const schemaData = {[filename as string]: YAML.parse(file)}
-
-                pathsData = setSchema(pathsData, schemaData)
-            }
+            const schemaData = await getSchemaData((filename as string), url, server, isUrl)
+            pathsData = setSchema(pathsData, schemaData)
         }
 
         pathsData = Object.values(pathsData)

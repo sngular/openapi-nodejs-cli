@@ -1,8 +1,9 @@
 import fs from "fs"
-import path from "path"
+import path, { join } from "path";
 import process from "process"
 import Handlebars from "handlebars"
 import axios from "axios";
+import YAML from "yaml";
 
 export { setHandlebarsHelpers } from './handlebarsHelpers'
 
@@ -94,4 +95,14 @@ export const getFilenameAndServer = (inputString: string): {server: string, file
     const filename = splitInputString[splitInputString.length - 1]
 
     return {server, filename}
+}
+
+export const getSchemaData = async (filename: string, inputString: string, server: string, isUrl: boolean) => {
+    if (isUrl) {
+        const response = await axios.get(`${server}/${filename}`)
+        return {[filename as string]: YAML.parse(response.data)}
+    }
+    const newUrl = inputString.split('/').slice(0, -1).join('/')
+    const file = fs.readFileSync(join(newUrl, (filename as string)), 'utf-8')
+    return {[filename as string]: YAML.parse(file)}
 }
