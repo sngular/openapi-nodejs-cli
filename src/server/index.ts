@@ -1,10 +1,8 @@
 import axios from 'axios'
 import YAML from 'yaml'
-import { getSchemaRefPath, getSpecificationFile, setHandlebarsHelpers, setSchema, writeOutputFile } from "../helpers";
+import { getSchemaRefPath, getSpecificationFile, setSchema, writeOutputFile } from "../helpers";
 import fs from "fs"
 import {join} from "path"
-
-setHandlebarsHelpers()
 
 const formatPathParam = (path: string): string => {
     return path.split('/').map(element => {
