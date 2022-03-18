@@ -1,6 +1,6 @@
 import axios from 'axios'
 import YAML from "yaml";
-import { getSchemaRefPath, getSpecificationFile, setSchema, writeOutputFile } from "../helpers";
+import { getFilenameAndServer, getSchemaRefPath, getSpecificationFile, setSchema, writeOutputFile } from "../helpers";
 import fs from 'fs'
 import {join} from 'path'
 
@@ -18,10 +18,7 @@ const formatPathParam = (path: string): string => {
 
 export const generateClientCode = async (urls: string[], allowedPaths: string[] = []) => {
     for (const url of urls) {
-        const splitUrl = url.split('/')
-        const server = splitUrl.slice(0, splitUrl.length - 1).join('/')
-        const filename = splitUrl[splitUrl.length - 1]
-
+        const { server, filename } = getFilenameAndServer(url)
         const { file, isUrl } = await getSpecificationFile(url)
 
         const data = YAML.parse(file)

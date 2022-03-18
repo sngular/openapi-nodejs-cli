@@ -87,3 +87,11 @@ export const getSpecificationFile = async (inputString: string): Promise<{ file:
     file = fs.readFileSync(inputString, "utf-8")
     return { file, isUrl }
 }
+
+export const getFilenameAndServer = (inputString: string): {server: string, filename: string} => {
+    const splitInputString = inputString.split('/')
+    const server = splitInputString.slice(0, splitInputString.length - 1).join('/')
+    const filename = splitInputString[splitInputString.length - 1]
+
+    return {server, filename}
+}
