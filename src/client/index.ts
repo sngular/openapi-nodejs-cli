@@ -1,6 +1,6 @@
 import axios from 'axios'
 import YAML from "yaml";
-import {getSchemaRefPath, setHandlebarsHelpers, setSchema, writeOutputFile} from "../helpers";
+import { getSchemaRefPath, getSpecificationFile, setHandlebarsHelpers, setSchema, writeOutputFile } from "../helpers";
 import fs from 'fs'
 import {join} from 'path'
 
@@ -23,16 +23,8 @@ export const generateClientCode = async (urls: string[], allowedPaths: string[] 
         const splitUrl = url.split('/')
         const server = splitUrl.slice(0, splitUrl.length - 1).join('/')
         const filename = splitUrl[splitUrl.length - 1]
-        let isUrl = false
 
-        let file: string = ''
-        if (url.startsWith('http')) {
-            isUrl = true
-            let response = await axios.get(url)
-            file = response.data
-        } else {
-            file = fs.readFileSync(url, "utf-8")
-        }
+        const { file, isUrl } = await getSpecificationFile(url)
 
         const data = YAML.parse(file)
 

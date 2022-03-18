@@ -2,6 +2,7 @@ import fs from "fs"
 import path from "path"
 import process from "process"
 import Handlebars from "handlebars"
+import axios from "axios";
 
 export { setHandlebarsHelpers } from './handlebarsHelpers'
 
@@ -74,4 +75,15 @@ export const setSchema = (item: any, schemaData: any): { [key: string]: any } =>
     }
 
     return newItem
+}
+
+export const getSpecificationFile = async (inputString: string): Promise<{ file: string, isUrl: boolean }> => {
+    let file: string = ''
+    let isUrl = false
+    if (inputString.startsWith('http')) {
+        let response = await axios.get(inputString)
+        return { file: response.data, isUrl: true }
+    }
+    file = fs.readFileSync(inputString, "utf-8")
+    return { file, isUrl }
 }
