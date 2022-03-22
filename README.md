@@ -1,8 +1,9 @@
 # OpenAPI NodeJS CLI
 
-This generator requires the Node version >=17.7.1 to run properly 
+This generator requires the Node version >=17.7.1 to run properly
 
 ## Install dependencies
+
 To install dependencies run:
 `npm i`
 
@@ -29,8 +30,8 @@ If `--client` and `--server` are not set, both client and server code will be ge
 
 - Generate code from 2 OpenAPI specification files (URLs)
 
-    `npm start -- -i http://127.0.0.1:8080/kafka.yaml http://127.0.0.1:8080/schemaRegistry.yaml`
+  `npm start -- -i http://127.0.0.1:8080/kafka.yaml http://127.0.0.1:8080/schemaRegistry.yaml`
 
 - Only generate client code from 1 file form a directory using only the given path
 
-    `npm start -- -i /Users/user/specification/kafka.yaml --allowed-paths /kafka --client`
+  `npm start -- -i /Users/user/specification/kafka.yaml --allowed-paths /kafka --client`
