@@ -14,6 +14,8 @@ export const writeOutputFile = (data: any[], templateName: 'client' | 'server', 
     const template = Handlebars.compile(source)
     const output = template(data)
 
+    log(`Writing ${templateName} output file on ${path.join(process.cwd(), outputDir)} as ${filename}.ts`, templateName)
+
     fs.writeFileSync(path.join(process.cwd(), `/${outputDir}/${filename}.ts`), output, 'utf-8')
 }
 
@@ -74,4 +76,9 @@ export const setSchema = (item: any, schemaData: any): { [key: string]: any } =>
     }
 
     return newItem
+}
+
+export const log = (msg: string, type: string = 'info'): void => {
+    const time = new Date().toLocaleTimeString()
+    console.log(`[${type.toUpperCase()}] ${time} - ${msg}`)
 }
