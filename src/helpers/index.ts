@@ -39,9 +39,10 @@ export const getSchemaRefPath = (item: any): any => {
     if (!Object.keys(item).includes("schema")) {
       schemaFilename = getSchemaRefPath(item[key]);
 
-      if (schemaFilename !== undefined) {
-        return schemaFilename;
-      }
+    log(`Writing ${templateName} output file on ${path.join(process.cwd(), outputDir)} as ${filename}.ts`, templateName)
+
+    fs.writeFileSync(path.join(process.cwd(), `/${outputDir}/${filename}.ts`), output, 'utf-8')
+}
 
       continue;
     }
@@ -91,5 +92,10 @@ export const setSchema = (
     }
   }
 
-  return newItem;
-};
+    return newItem
+}
+
+export const log = (msg: string, type: string = 'info'): void => {
+    const time = new Date().toLocaleTimeString()
+    console.log(`[${type.toUpperCase()}] ${time} - ${msg}`)
+}
