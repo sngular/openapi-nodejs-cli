@@ -22,6 +22,13 @@ export const writeOutputFile = (
   const template = Handlebars.compile(source);
   const output = template(data);
 
+  log(
+    `Writing ${templateName} output file on ${path.join(
+      process.cwd(),
+      outputDir
+    )} as ${filename}.ts`,
+    templateName
+  );
   fs.writeFileSync(
     path.join(process.cwd(), `/${outputDir}/${filename}.ts`),
     output,
@@ -39,10 +46,9 @@ export const getSchemaRefPath = (item: any): any => {
     if (!Object.keys(item).includes("schema")) {
       schemaFilename = getSchemaRefPath(item[key]);
 
-    log(`Writing ${templateName} output file on ${path.join(process.cwd(), outputDir)} as ${filename}.ts`, templateName)
-
-    fs.writeFileSync(path.join(process.cwd(), `/${outputDir}/${filename}.ts`), output, 'utf-8')
-}
+      if (schemaFilename !== undefined) {
+        return schemaFilename;
+      }
 
       continue;
     }
@@ -92,10 +98,10 @@ export const setSchema = (
     }
   }
 
-    return newItem
-}
+  return newItem;
+};
 
-export const log = (msg: string, type: string = 'info'): void => {
-    const time = new Date().toLocaleTimeString()
-    console.log(`[${type.toUpperCase()}] ${time} - ${msg}`)
-}
+export const log = (msg: string, type: string = "info"): void => {
+  const time = new Date().toLocaleTimeString();
+  console.log(`[${type.toUpperCase()}] ${time} - ${msg}`);
+};
