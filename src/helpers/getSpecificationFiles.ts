@@ -17,7 +17,17 @@ export async function getSpecificationFiles(
     let file = await getFile(isUrl, pathToSpec);
 
     const refRegex = /"\$ref":"[^},]+/gim;
-    let jsonData = YAML.parse(file);
+    let jsonData: DataObject = {};
+
+    const fileExtension = pathToSpec.split(".").slice(-1)[0].toLowerCase();
+
+    if (fileExtension === "yaml" || fileExtension === "yml") {
+      jsonData = YAML.parse(file);
+    }
+
+    if (fileExtension === "json") {
+      jsonData = JSON.parse(file);
+    }
 
     if (!jsonData.components) {
       const refMatch = JSON.stringify(jsonData.paths).match(refRegex);
@@ -36,7 +46,21 @@ export async function getSpecificationFiles(
           const componentsPath = refString.split("#")[0];
 
           let response = await getComponentsFiles(componentsPath, isUrl);
-          const componentsData = YAML.parse(response);
+          let componentsData: DataObject = {};
+
+          const fileExtension = componentsPath
+            .split(".")
+            .slice(-1)[0]
+            .toLowerCase();
+
+          if (fileExtension === "yaml" || fileExtension === "yml") {
+            componentsData = YAML.parse(response);
+          }
+
+          if (fileExtension === "json") {
+            componentsData = JSON.parse(response);
+          }
+
           const newSchema = {
             [`${capitalize(specName)}Schema`]: componentsData.components.schema,
           };
