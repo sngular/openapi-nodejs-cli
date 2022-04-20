@@ -4,7 +4,7 @@ import path from "path";
 
 export async function getComponentsFiles(filePath: string, isUrl: boolean) {
   if (isUrl) {
-    const response = await axios.get(`http://localhost:8080/${filePath}`);
+    let response = await axios.get(`http://localhost:8080/${filePath}`);
     return response.data;
   }
 

@@ -14,14 +14,7 @@ export async function getSpecificationFiles(
 
     const specName = pathToSpec.split("/").slice(-1)[0].split(".")[0];
     const isUrl = pathToSpec.startsWith("http");
-    let file = "";
-
-    if (isUrl) {
-      const response = await axios.get(pathToSpec);
-      file = response.data;
-    } else {
-      file = readFileSync(pathToSpec, "utf-8");
-    }
+    let file = await getFile(isUrl, pathToSpec);
 
     const refRegex = /"\$ref":"[^},]+/gim;
     let jsonData = YAML.parse(file);
@@ -42,7 +35,7 @@ export async function getSpecificationFiles(
         if (refString.includes("#") && !refString.startsWith("#")) {
           const componentsPath = refString.split("#")[0];
 
-          const response = await getComponentsFiles(componentsPath, isUrl);
+          let response = await getComponentsFiles(componentsPath, isUrl);
           const componentsData = YAML.parse(response);
           const newSchema = {
             [`${capitalize(specName)}Schema`]: componentsData.components.schema,
@@ -68,4 +61,16 @@ export async function getSpecificationFiles(
   }
 
   return data;
+}
+
+async function getFile(isUrl: boolean, pathToSpec: string) {
+  let file = "";
+
+  if (isUrl) {
+    let response = await axios.get(pathToSpec);
+    file = response.data;
+  } else {
+    file = readFileSync(pathToSpec, "utf-8");
+  }
+  return file;
 }
