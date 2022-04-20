@@ -13,4 +13,8 @@ export const setHandlebarsHelpers = () => {
     characters[0] = characters[0].toUpperCase();
     return characters.join("");
   });
+
+  Handlebars.registerHelper("removeSymbol", (text: string): string => {
+    return text.replaceAll(/[^a-z]+/gim, "");
+  });
 };

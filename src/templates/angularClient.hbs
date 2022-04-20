@@ -1,0 +1,32 @@
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Observable} from 'rxjs';
+
+{{#components.schemas}}
+interface {{name}} {
+{{#each properties}}
+    {{@key}}{{#unless (includes ../required @key)}}?{{/unless}}: {{{this.type}}}
+{{/each}}
+}
+{{/components.schemas}}
+
+@Injectable({
+    providedIn: 'root'
+})
+export class CustomService {
+
+    private readonly headers: HttpHeaders = new HttpHeaders();
+
+    constructor(private http: HttpClient) {
+        this.headers = this.headers.set('Content-Type', 'application/json');
+    }
+
+    {{#paths}}
+    {{#methods}}
+    public {{operationId}}({{#parameters}}{{name}}: {{type}}, {{/parameters}}{{#with requestBody.content.[application/json]}}body: {{{this.type}}}{{/with}}){{#responses}}{{#with content.[application/json]}}: Observable<{{type}}>{{/with}}{{/responses}} {
+        return this.http.{{methodName}}{{#responses}}{{#with content.[application/json]}}<{{type}}>{{/with}}{{/responses}}(`{{{../route}}}`{{#requestBody}}, body{{/requestBody}}{{#unless requestBody}}, null{{/unless}}, { headers: this.headers });
+    }
+    
+    {{/methods}}
+    {{/paths}}
+}

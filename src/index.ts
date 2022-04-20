@@ -1,7 +1,12 @@
 import { program } from "commander";
 import { generateClientCode } from "./client";
+import {
+  getSpecificationFiles,
+  parseDocument,
+  setHandlebarsHelpers,
+} from "./helpers";
 import { generateServerCode } from "./server";
-import { setHandlebarsHelpers } from "./helpers";
+import { DataObject } from "./types";
 
 setHandlebarsHelpers();
 
@@ -10,12 +15,13 @@ program
   .requiredOption("-i, --input <string...>", "OpenAPI spec URLs or directories")
   .option("--allowed-paths <string...>", "list of allowed paths from spec")
   .option("--client", "only generate client code")
-  .option("--server", "only generate server code");
+  .option("--server", "only generate server code")
+  .option("--angular", "generate client code for Angular");
 
 program.parse();
 const options = program.opts();
 
-const input = options.input;
+const inputs: string[] = options.input;
 const allowedPaths: string[] = options.allowedPaths;
 
 if (!options.client && !options.server) {
@@ -23,10 +29,18 @@ if (!options.client && !options.server) {
   options.server = true;
 }
 
-if (options.client) {
-  generateClientCode(input, allowedPaths).then((_) => {});
+async function main() {
+  const data: DataObject = await getSpecificationFiles(inputs);
+
+  const parsedData = parseDocument(data);
+
+  if (options.client) {
+    generateClientCode(parsedData, options.angular);
+  }
+
+  if (options.server) {
+    generateServerCode(parsedData);
+  }
 }
 
-if (options.server) {
-  generateServerCode(input, allowedPaths).then((_) => {});
-}
+main();
