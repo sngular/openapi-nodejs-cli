@@ -1,7 +1,9 @@
 import fs from "fs";
-import path from "path";
+import path, { join } from "path";
 import process from "process";
 import Handlebars from "handlebars";
+import axios from "axios";
+import YAML from "yaml";
 
 export { setHandlebarsHelpers } from "./handlebarsHelpers";
 
@@ -99,6 +101,46 @@ export const setSchema = (
   }
 
   return newItem;
+};
+
+export const getSpecificationFile = async (
+  inputString: string
+): Promise<{ file: string; isUrl: boolean }> => {
+  let file: string = "";
+  let isUrl = false;
+  if (inputString.startsWith("http")) {
+    let response = await axios.get(inputString);
+    return { file: response.data, isUrl: true };
+  }
+  file = fs.readFileSync(inputString, "utf-8");
+  return { file, isUrl };
+};
+
+export const getFilenameAndServer = (
+  inputString: string
+): { server: string; filename: string } => {
+  const splitInputString = inputString.split("/");
+  const server = splitInputString
+    .slice(0, splitInputString.length - 1)
+    .join("/");
+  const filename = splitInputString[splitInputString.length - 1];
+
+  return { server, filename };
+};
+
+export const getSchemaData = async (
+  filename: string,
+  inputString: string,
+  server: string,
+  isUrl: boolean
+) => {
+  if (isUrl) {
+    const response = await axios.get(`${server}/${filename}`);
+    return { [filename as string]: YAML.parse(response.data) };
+  }
+  const newUrl = inputString.split("/").slice(0, -1).join("/");
+  const file = fs.readFileSync(join(newUrl, filename as string), "utf-8");
+  return { [filename as string]: YAML.parse(file) };
 };
 
 export const log = (msg: string, type: string = "info"): void => {

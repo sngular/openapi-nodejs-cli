@@ -1,6 +1,9 @@
 import { program } from "commander";
 import { generateClientCode } from "./client";
 import { generateServerCode } from "./server";
+import { setHandlebarsHelpers } from "./helpers";
+
+setHandlebarsHelpers();
 
 program
   .version("0.0.1")
