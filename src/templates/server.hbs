@@ -2,43 +2,39 @@ import express, { NextFunction, Request, Response } from 'express';
 
 const app = express();
 
-{{#paths}}
-{{#if requestBody.required}}
-interface {{capitalize filename}}{{{capitalize operationId}}}Body {
-{{#with requestBody.content.[application/json].schema}}
-{{#each properties}}
-    {{@key}}{{#unless (includes ../required @key)}}?{{/unless}}: {{this.type}}
-{{/each}}
-{{/with}}
+{{#components.schemas}}
+interface {{name}} {
+    {{#each properties}}
+        {{@key}}{{#unless (includes ../required @key)}}?{{/unless}}: {{{this.type}}}
+    {{/each}}
 }
-{{/if}}
+{{/components.schemas}}
 
+{{#paths}}
+{{#methods}}
 {{#if requestBody.required}}
 {{#if parameters}}
-app.{{method}}('{{{pathName}}}', (req: Request<{ {{#each parameters}}{{name}}: {{schema.type}},{{/each}} }, {}, {{capitalize filename}}{{{capitalize operationId}}}Body>, res: Response) => {
+app.{{methodName}}('{{{../route}}}', (req: Request<{ {{#parameters}}{{name}}: {{type}},{{/parameters}} }, {}, {{#with requestBody.content.[application/json]}}{{{this.type}}}{{/with}}>, res: Response) => {
 {{/if}}
 {{/if}}
 {{#if requestBody.required}}
 {{#unless parameters}}
-app.{{method}}('{{{pathName}}}', (req: Request<{}, {}, {{capitalize filename}}{{{capitalize operationId}}}Body>, res: Response) => {
+app.{{methodName}}('{{{../route}}}', (req: Request<{}, {}, {{#with requestBody.content.[application/json]}}{{{this.type}}}{{/with}}>, res: Response) => {
 {{/unless}}
 {{/if}}
 {{#unless requestBody.required}}
 {{#if parameters}}
-app.{{method}}('{{{pathName}}}', (req: Request<{ {{#each parameters}}{{name}}: {{schema.type}},{{/each}} }>, res: Response) => {
+app.{{methodName}}('{{{../route}}}', (req: Request<{ {{#parameters}}{{name}}: {{type}},{{/parameters}} }>, res: Response) => {
 {{/if}}
 {{/unless}}
 {{#unless requestBody.required}}
 {{#unless parameters}}
-app.{{method}}('{{{pathName}}}', (req: Request, res: Response) => {
+app.{{methodName}}('{{{../route}}}', (req: Request, res: Response) => {
 {{/unless}}
 {{/unless}}
     {{#if requestBody.required}}
     if (
-        req.body === undefined ||
-        {{#each requestBody.content.[application/json].schema.required}}
-        req.body.{{this}} === undefined {{#unless @last}}||{{/unless}}
-        {{/each}}
+        req.body === undefined
     ) {
         res.sendStatus(400);
         return;
@@ -48,6 +44,7 @@ app.{{method}}('{{{pathName}}}', (req: Request, res: Response) => {
     res.sendStatus(200);
 });
 
+{{/methods}}
 {{/paths}}
 app.use((req: Request, res: Response, next: NextFunction) => {
     res.sendStatus(404)
