@@ -1,5 +1,11 @@
 import axios from 'axios'
 
+{{#if description}}
+/**
+  {{description}}
+ */
+{{/if}}
+
 {{#servers}}
 const SERVER = '{{{url}}}'
 {{/servers}}

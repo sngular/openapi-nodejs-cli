@@ -1,5 +1,12 @@
 import express, { NextFunction, Request, Response } from 'express';
 
+
+{{#if description}}
+/**
+  {{description}}
+ */
+{{/if}}
+
 const app = express();
 
 {{#components.schemas}}

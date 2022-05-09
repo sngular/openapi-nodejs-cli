@@ -2,6 +2,13 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 
+
+{{#if description}}
+/**
+  {{description}}
+ */
+{{/if}}
+
 {{#components.schemas}}
 interface {{name}} {
 {{#each properties}}
@@ -13,7 +20,7 @@ interface {{name}} {
 @Injectable({
     providedIn: 'root'
 })
-export class CustomService {
+export class {{tagname}}Service {
 
     private readonly headers: HttpHeaders = new HttpHeaders();
 

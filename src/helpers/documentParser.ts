@@ -1,12 +1,11 @@
 import { capitalize } from ".";
-import { DataObject } from "../types";
+import { DataObject, Path } from "../types";
 
 export function parseDocument(data: DataObject) {
   // Parse components.schemas
   if (data.components) {
     data.components.schemas = parseSchemas(data.components.schemas, data);
   }
-
   // Transform paths and methods from object to array of objects
   data.paths = parsePaths(data.paths);
 
@@ -76,7 +75,7 @@ function resolveSchemaName(refValue: string) {
  * @param {DataObject} schemas
  * @returns {DataObject[]}
  */
-function parseSchemas(schemas: DataObject, data: DataObject) {
+function parseSchemas(schemas: DataObject, data: DataObject): DataObject[] {
   const newSchemas = Object.keys(schemas).map((schema) => ({
     name: schema,
     ...schemas[schema],
@@ -172,8 +171,9 @@ function parseObjectPropertiesTypes(properties: DataObject) {
  * @param {DataObject} paths
  * @returns
  */
-function parsePaths(paths: DataObject) {
+function parsePaths(paths: DataObject): Path[] {
   return Object.keys(paths).map((path) => {
+
     const specName = path
       .split("/")[1]
       .split("-")
@@ -200,8 +200,8 @@ const formatPath = (path: string): string => {
     .join("/");
 };
 
-function parseMethods(methods: DataObject, specName: string) {
-  return Object.keys(methods).map((method: any) => ({
+function parseMethods(methods: DataObject, specName: string){
+  return Object.keys(methods).map((method: string) => ({
     methodName: method,
     ...methods[method],
     operationId: methods[method]["operationId"] + specName,
@@ -215,7 +215,7 @@ function parseResponses(responses: DataObject) {
   }));
 }
 
-function parseTypes(schema: DataObject) {
+function parseTypes(schema: DataObject): string | undefined {
   if (schema.type) {
     switch (schema.type) {
       case "integer":
