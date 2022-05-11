@@ -44,15 +44,10 @@ export async function getSpecificationFiles(
 
         if (refString.includes("#") && !refString.startsWith("#")) {
 
-          let componentsPath = '';
-          if (!isUrl) {
-            const componentsBasePath = pathToSpec.split('/').slice(0,-1).join('/');
-            componentsPath = [componentsBasePath, refString.split("#")[0]].join('/');
-          } else { 
-            componentsPath = refString.split("#")[0];
-          }
+          const componentsBasePath = pathToSpec.split('/').slice(0,-1).join('/');
+          const componentsPath = [componentsBasePath, refString.split("#")[0]].join('/');
 
-          let response = await getComponentsFiles(componentsPath, isUrl);
+          const response = await getComponentsFiles(componentsPath, isUrl);
           let componentsData: DataObject = {};
 
           const fileExtension = componentsPath
