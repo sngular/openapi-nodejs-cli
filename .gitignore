@@ -3,3 +3,4 @@ build
 output
 input
 coverage
+package-lock.json
