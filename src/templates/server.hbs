@@ -1,6 +1,5 @@
 import express, { NextFunction, Request, Response } from 'express';
 
-
 {{#if description}}
 /**
   {{description}}
@@ -46,9 +45,8 @@ app.{{methodName}}('{{{../route}}}', (req: Request, res: Response) => {
         res.sendStatus(400);
         return;
     }
-
     {{/if}}
-    res.sendStatus(200);
+    throw new Error('Method {{methodName}} for {{{../route}}} not implemented')
 });
 
 {{/methods}}
