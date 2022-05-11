@@ -11,8 +11,22 @@ export const generateClientCode = (
   log("Generating client code", "client");
 
   if (angular) {
-    writeOutputFile(data, "angularClient", `${outputDir}/client`, `${tagname}.service`, tagname, fileComments);
+    writeOutputFile(
+      data,
+      "angularClient",
+      `${outputDir}/client`,
+      `${tagname}.service`,
+      tagname,
+      fileComments
+    );
   } else {
-    writeOutputFile(data, "client", `${outputDir}/client`, tagname, tagname, fileComments);
+    writeOutputFile(
+      data,
+      "client",
+      `${outputDir}/client`,
+      tagname,
+      tagname,
+      fileComments
+    );
   }
 };

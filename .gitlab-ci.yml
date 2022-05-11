@@ -1,0 +1,28 @@
+image: node:latest
+
+stages:
+  - install_dependencies
+  - lint
+  - build
+
+cache:
+  paths:
+    - node_modules/
+
+install:
+  stage: install_dependencies
+  script:
+    - npm install
+  artifacts:
+    paths:
+    - node_modules/
+
+lint:
+  stage: lint
+  script: 
+    - npm run-script lint
+
+build:
+  stage: build
+  script: 
+    - npm run-script build

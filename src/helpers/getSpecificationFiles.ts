@@ -43,9 +43,14 @@ export async function getSpecificationFiles(
         const refString = refMatch[0].split(":")[1].replaceAll('"', "");
 
         if (refString.includes("#") && !refString.startsWith("#")) {
-
-          const componentsBasePath = pathToSpec.split('/').slice(0,-1).join('/');
-          const componentsPath = [componentsBasePath, refString.split("#")[0]].join('/');
+          const componentsBasePath = pathToSpec
+            .split("/")
+            .slice(0, -1)
+            .join("/");
+          const componentsPath = [
+            componentsBasePath,
+            refString.split("#")[0],
+          ].join("/");
 
           const response = await getComponentsFiles(componentsPath, isUrl);
           let componentsData: DataObject = {};

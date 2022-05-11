@@ -10,5 +10,12 @@ export const generateServerCode = (
 ) => {
   log("Generating server code", "server");
 
-  writeOutputFile(data, "server", `${outputDir}/server`, filename, tagName, fileComments);
+  writeOutputFile(
+    data,
+    "server",
+    `${outputDir}/server`,
+    filename,
+    tagName,
+    fileComments
+  );
 };

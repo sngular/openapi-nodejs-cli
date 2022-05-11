@@ -173,7 +173,6 @@ function parseObjectPropertiesTypes(properties: DataObject) {
  */
 function parsePaths(paths: DataObject): Path[] {
   return Object.keys(paths).map((path) => {
-
     const specName = path
       .split("/")[1]
       .split("-")
@@ -200,7 +199,7 @@ const formatPath = (path: string): string => {
     .join("/");
 };
 
-function parseMethods(methods: DataObject, specName: string){
+function parseMethods(methods: DataObject, specName: string) {
   return Object.keys(methods).map((method: string) => ({
     methodName: method,
     ...methods[method],
