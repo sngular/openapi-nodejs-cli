@@ -23,7 +23,11 @@ export const writeOutputFile = (
   );
 
   const template = Handlebars.compile(source);
-  const output = template({ ...data, tagname: toPascalCase(tagname), description: fileComments });
+  const output = template({
+    ...data,
+    tagname: toPascalCase(tagname),
+    description: fileComments,
+  });
 
   log(
     `Writing ${templateName} output file on ${path.join(
@@ -40,9 +44,10 @@ export const writeOutputFile = (
 };
 
 function toPascalCase(string: string): string {
-
-  return string.replace(
-      /([a-zA-Z0-9+])*/g, 
-      m => m.charAt(0).toUpperCase() + m.substring(1).toLowerCase()
-    ).replace(/[^a-zA-Z0-9]/g, '');
-  }
+  return string
+    .replace(
+      /([a-zA-Z0-9+])*/g,
+      (m) => m.charAt(0).toUpperCase() + m.substring(1).toLowerCase()
+    )
+    .replace(/[^a-zA-Z0-9]/g, "");
+}
