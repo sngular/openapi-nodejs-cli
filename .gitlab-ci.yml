@@ -3,6 +3,7 @@ image: node:latest
 stages:
   - install_dependencies
   - lint
+  - test
   - build
 
 cache:
@@ -26,3 +27,8 @@ build:
   stage: build
   script: 
     - npm run-script build
+
+test:
+  stage: test
+  script: 
+    - npm run-script test

@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
+    "coverage": "jest --coverage",
     "clean": "rm -rf build output",
     "build": "tsc",
     "start": "node build/index.js",
@@ -17,11 +18,14 @@
     "url": "ssh://git@gitlab.local.corunet.com:122/test-training/openapi-nodejs-cli.git"
   },
   "devDependencies": {
+    "@types/jest": "^27.5.0",
     "@types/node": "^17.0.21",
     "@typescript-eslint/parser": "^5.15.0",
     "eslint": "^8.11.0",
     "eslint-plugin-prettier": "^4.0.0",
+    "jest": "^28.1.0",
     "prettier": "^2.6.0",
+    "ts-jest": "^28.0.2",
     "typescript": "^4.6.2"
   },
   "dependencies": {
