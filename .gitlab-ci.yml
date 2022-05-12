@@ -2,8 +2,7 @@ image: node:latest
 
 stages:
   - install_dependencies
-  - lint
-  - test
+  - check_code
   - build
 
 cache:
@@ -19,16 +18,25 @@ install:
     - node_modules/
 
 lint:
-  stage: lint
+  stage: check_code
   script: 
     - npm run-script lint
+  needs: ["install"]
+
+test:
+  stage: check_code
+  script: 
+    - npm run-script test
+  needs: ["install", "lint"] 
+
+coverage:
+  stage: check_code
+  script: 
+    - npm run-script coverage
+  needs: ["install", "lint", "test"]
 
 build:
   stage: build
   script: 
     - npm run-script build
 
-test:
-  stage: test
-  script: 
-    - npm run-script test
