@@ -1,21 +1,15 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
-
+{{#each components}}
+import {{@key}} from '../interfaces/{{@key}}.ts';
+{{/each}}
 
 {{#if description}}
 /**
   {{description}}
  */
 {{/if}}
-
-{{#components.schemas}}
-interface {{name}} {
-{{#each properties}}
-    {{@key}}{{#unless (includes ../required @key)}}?{{/unless}}: {{{this.type}}}
-{{/each}}
-}
-{{/components.schemas}}
 
 @Injectable({
     providedIn: 'root'

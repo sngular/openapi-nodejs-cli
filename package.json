@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "ssh://git@gitlab.local.corunet.com:122/test-training/openapi-nodejs-cli.git"
+    "url": "https://gitlab.local.corunet.com/oss/api-generator/openapi-nodejs-cli.git"
   },
   "devDependencies": {
     "@types/jest": "^27.5.0",

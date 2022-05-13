@@ -4,10 +4,11 @@ import path from "path";
 import process from "process";
 import { log } from ".";
 import { DataObject } from "../types";
+import { toPascalCase } from "./toPascalCase";
 
 export const writeOutputFile = (
   data: DataObject,
-  templateName: "client" | "server" | "angularClient",
+  templateName: "client" | "server" | "angularClient" | "interfaces",
   outputDir: string = "output",
   filename: string = "index",
   tagname: string = "Custom",
@@ -42,12 +43,3 @@ export const writeOutputFile = (
     "utf-8"
   );
 };
-
-function toPascalCase(string: string): string {
-  return string
-    .replace(
-      /([a-zA-Z0-9+])*/g,
-      (m) => m.charAt(0).toUpperCase() + m.substring(1).toLowerCase()
-    )
-    .replace(/[^a-zA-Z0-9]/g, "");
-}

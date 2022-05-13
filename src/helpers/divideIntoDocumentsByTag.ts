@@ -5,26 +5,18 @@ import { parseDocument } from "./documentParser";
 export function divideIntoDocumentsByTag(data: DataObject): FileObject[] {
   const tags: (string | undefined)[] = getAllTagsInDataObject(data);
 
-  if (tags.length > 0) {
-    const documentsByTag = tags.map((tag) => {
-      const foundTagInfo = data.tags?.find(
-        (item: { name: string; description: string }) => item.name === tag
-      );
-      return {
-        tagName: tag,
-        document: generatesDocumentByTag(data, tag),
-        description: foundTagInfo?.description || undefined,
-      };
-    });
+  const documentsByTag = tags.map((tag) => {
+    const foundTagInfo = data.tags?.find(
+      (item: { name: string; description: string }) => item.name === tag
+    );
+    return {
+      tagName: tag,
+      document: generatesDocumentByTag(data, tag),
+      description: foundTagInfo?.description || undefined,
+    };
+  });
 
-    return documentsByTag;
-  } else {
-    return [
-      {
-        document: generatesDocumentWithoutTag(data),
-      },
-    ];
-  }
+  return documentsByTag;
 }
 
 function getAllTagsInDataObject(data: DataObject): (string | undefined)[] {
@@ -76,10 +68,5 @@ function generatesDocumentByTag(
               (method: Method) => method.tags && method.tags.includes(tag)
             ),
     }));
-  return document;
-}
-
-function generatesDocumentWithoutTag(data: DataObject): DataObject {
-  const document = parseDocument(JSON.parse(JSON.stringify(data)));
   return document;
 }

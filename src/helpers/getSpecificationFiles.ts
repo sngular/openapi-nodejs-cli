@@ -2,17 +2,16 @@ import axios from "axios";
 import YAML from "yaml";
 import { readFileSync } from "fs";
 import { DataObject } from "../types";
-import { capitalize, log, getComponentsFiles } from ".";
+import { capitalize, log, getComponentsFiles, parseTypes } from ".";
 
 export async function getSpecificationFiles(
   pathsToSpec: string[]
 ): Promise<DataObject> {
   let data: DataObject = {};
+  let interfacesData: { [key: string]: string } = {};
 
   for (const pathToSpec of pathsToSpec) {
     log(`Getting OpenAPI specification file from ${pathToSpec}`);
-
-    const specName = pathToSpec.split("/").slice(-1)[0].split(".")[0];
     const isUrl = pathToSpec.startsWith("http");
     let file = await getFile(isUrl, pathToSpec);
 
@@ -32,12 +31,30 @@ export async function getSpecificationFiles(
     if (!jsonData.components) {
       const refMatch = JSON.stringify(jsonData.paths).match(refRegex);
 
-      jsonData = JSON.parse(
-        JSON.stringify(jsonData).replaceAll(
-          refRegex,
-          `"$ref": "${capitalize(specName)}Schema"`
-        )
-      );
+      Object.keys(jsonData.paths).forEach((path: string) => {
+        const methods = Object.keys(jsonData.paths[path]);
+
+        methods.forEach((method: string) => {
+          const methodInfo = jsonData.paths[path][method];
+          const responses = { ...methodInfo.responses };
+          const statusCodes = Object.keys(responses);
+
+          statusCodes.forEach((statusCode: string) => {
+            if (responses[statusCode].content) {
+              const contentKeys = Object.keys(
+                responses[statusCode].content["application/json"]
+              );
+              contentKeys.forEach((key: string) => {
+                responses[statusCode].content["application/json"][key] = {
+                  $ref: parseTypes(
+                    responses[statusCode].content["application/json"][key]
+                  ),
+                };
+              });
+            }
+          });
+        });
+      });
 
       if (refMatch !== null) {
         const refString = refMatch[0].split(":")[1].replaceAll('"', "");
@@ -68,18 +85,12 @@ export async function getSpecificationFiles(
             componentsData = JSON.parse(response);
           }
 
-          const newSchema = {
-            [`${capitalize(specName)}Schema`]: componentsData.components.schema,
-          };
+          const componentKeys = Object.keys(componentsData.components);
 
-          if (data.components && data.components.schemas) {
-            data.components.schemas = {
-              ...data.components.schemas,
-              ...newSchema,
-            };
-          } else {
-            data = { ...data, components: { schemas: newSchema } };
-          }
+          componentKeys.forEach((key: string) => {
+            interfacesData[capitalize(key)] = componentsData.components[key];
+          });
+          data = { ...data, components: interfacesData };
         }
       }
     }
