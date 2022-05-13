@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 {{#each components}}
-import {{@key}} from '../interfaces/{{@key}}.ts';
+import { {{@key}} } from '../interfaces/{{@key}}.ts';
 {{/each}}
 
 {{#if description}}
@@ -15,7 +15,9 @@ import {{@key}} from '../interfaces/{{@key}}.ts';
     providedIn: 'root'
 })
 export class {{tagname}}Service {
-
+    {{#servers}}
+    private server: string = '{{{url}}}';
+    {{/servers}}
     private readonly headers: HttpHeaders = new HttpHeaders();
 
     constructor(private http: HttpClient) {
@@ -25,7 +27,7 @@ export class {{tagname}}Service {
     {{#paths}}
     {{#methods}}
     public {{operationId}}({{#parameters}}{{name}}: {{type}}, {{/parameters}}{{#with requestBody.content.[application/json]}}body: {{{this.type}}}{{/with}}){{#responses}}{{#with content.[application/json]}}: Observable<{{type}}>{{/with}}{{/responses}} {
-        return this.http.{{methodName}}{{#responses}}{{#with content.[application/json]}}<{{type}}>{{/with}}{{/responses}}(`{{{../route}}}`{{#requestBody}}, body{{/requestBody}}{{#unless requestBody}}, null{{/unless}}, { headers: this.headers });
+        return this.http.{{methodName}}{{#responses}}{{#with content.[application/json]}}<{{type}}>{{/with}}{{/responses}}(this.server + `{{{../route}}}`{{#requestBody}}, body{{/requestBody}}{{#unless requestBody}}, null{{/unless}}, { headers: this.headers });
     }
     
     {{/methods}}
