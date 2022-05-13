@@ -1,0 +1,8 @@
+
+{{#each components}}
+export interface {{@key}} {
+  {{#each this.properties}}
+    {{@key}}{{#unless (includes ../required @key)}}?{{/unless}}: {{{this.type}}};
+  {{/each}}
+}
+{{/each}}

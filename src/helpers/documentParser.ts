@@ -1,11 +1,19 @@
-import { capitalize } from ".";
+import { capitalize, resolveSchemaName, parseTypes } from ".";
 import { DataObject, Path } from "../types";
 
 export function parseDocument(data: DataObject) {
   // Parse components.schemas
   if (data.components) {
-    data.components.schemas = parseSchemas(data.components.schemas, data);
+    const componentsKeys = Object.keys(data.components);
+
+    componentsKeys.forEach((key: string) => {
+      data.components[key] = parseSchemas(
+        { [key]: data.components[key] },
+        data
+      )[0];
+    });
   }
+
   // Transform paths and methods from object to array of objects
   data.paths = parsePaths(data.paths);
 
@@ -36,17 +44,18 @@ export function parseDocument(data: DataObject) {
         }
 
         // Parse method responses
+        responses = parseResponses(responses);
         data.paths[pathIndex].methods[methodIndex].responses =
           parseResponses(responses);
-        responses = parseResponses(responses);
 
         // Parse response content if exists
         responses.forEach(({ content }: DataObject, responseIndex: number) => {
           if (content && content["application/json"]) {
+            const typeKeys = Object.keys(content["application/json"]);
             data.paths[pathIndex].methods[methodIndex].responses[
               responseIndex
             ].content["application/json"].type = parseTypes(
-              content["application/json"].schema
+              content["application/json"][typeKeys[0]]
             );
           }
         });
@@ -55,19 +64,6 @@ export function parseDocument(data: DataObject) {
   });
 
   return data;
-}
-
-/**
- * @description If the input starts with '#', returns an array containing the strings required to access the schema
- * @param {string} refValue
- * @returns {string[]}
- */
-function resolveSchemaName(refValue: string) {
-  if (!refValue.startsWith("#") && !refValue.includes("#")) {
-    return [refValue];
-  }
-
-  return refValue.split("/").slice(1);
 }
 
 /**
@@ -80,7 +76,6 @@ function parseSchemas(schemas: DataObject, data: DataObject): DataObject[] {
     name: schema,
     ...schemas[schema],
   }));
-
   newSchemas.forEach((schema) => {
     if (schema.allOf) {
       schema.allOf.forEach((item: DataObject, index: number) => {
@@ -186,7 +181,7 @@ function parsePaths(paths: DataObject): Path[] {
   });
 }
 
-const formatPath = (path: string): string => {
+function formatPath(path: string): string {
   return path
     .split("/")
     .map((element) => {
@@ -197,13 +192,12 @@ const formatPath = (path: string): string => {
       }
     })
     .join("/");
-};
+}
 
 function parseMethods(methods: DataObject, specName: string) {
   return Object.keys(methods).map((method: string) => ({
     methodName: method,
     ...methods[method],
-    operationId: methods[method]["operationId"] + specName,
   }));
 }
 
@@ -212,29 +206,4 @@ function parseResponses(responses: DataObject) {
     responseCode: response,
     ...responses[response],
   }));
-}
-
-function parseTypes(schema: DataObject): string | undefined {
-  if (schema.type) {
-    switch (schema.type) {
-      case "integer":
-        return "number";
-      case "array":
-        if (schema.items.type) {
-          return `${schema.items.type}[]`;
-        }
-
-        if (schema.items["$ref"]) {
-          return `${resolveSchemaName(schema.items["$ref"]).slice(-1)[0]}[]`;
-        }
-      default:
-        return schema.type;
-    }
-  }
-
-  if (schema["$ref"]) {
-    const schemaName = resolveSchemaName(schema["$ref"]);
-
-    return schemaName.slice(-1)[0];
-  }
 }

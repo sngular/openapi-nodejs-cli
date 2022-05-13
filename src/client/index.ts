@@ -1,4 +1,5 @@
 import { writeOutputFile, log } from "../helpers";
+import { cleanComponents, getUsedComponents } from "../helpers/usedComponents";
 import { DataObject } from "../types";
 
 export const generateClientCode = (
@@ -9,6 +10,11 @@ export const generateClientCode = (
   fileComments: string = ""
 ) => {
   log("Generating client code", "client");
+
+  const usedComponents = getUsedComponents(data).map((component: string) =>
+    component.replace(/([^a-zA-Z]+)/g, "")
+  );
+  data.components = cleanComponents(data.components, usedComponents);
 
   if (angular) {
     writeOutputFile(

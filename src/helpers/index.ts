@@ -5,3 +5,5 @@ export { getComponentsFiles } from "./getComponentsFiles";
 export { getSpecificationFiles } from "./getSpecificationFiles";
 export { writeOutputFile } from "./writeOutputFile";
 export { capitalize } from "./capitalize";
+export { resolveSchemaName } from "./resolveSchemaName";
+export { parseTypes } from "./parseTypes";
