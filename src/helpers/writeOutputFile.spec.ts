@@ -69,7 +69,7 @@ describe("writeOutputFile()", () => {
       writeOutputFile(
         {},
         "angularClient",
-        "outputDir",
+        "outputTest",
         "custom.service",
         "CustomTagname"
       );
@@ -80,7 +80,7 @@ describe("writeOutputFile()", () => {
     });
 
     it("for client", () => {
-      writeOutputFile({}, "client", "outputDir", "custom", "CustomTagname");
+      writeOutputFile({}, "client", "outputTest", "custom", "CustomTagname");
       expect(readFileSyncSpy).toHaveBeenCalledWith(
         process.cwd() + "/src/templates/client.hbs",
         "utf-8"
@@ -88,14 +88,20 @@ describe("writeOutputFile()", () => {
     });
 
     it("for server", () => {
-      writeOutputFile({}, "server", "outputDir", "custom", "CustomTagname");
+      writeOutputFile({}, "server", "outputTest", "custom", "CustomTagname");
       expect(readFileSyncSpy).toHaveBeenCalledWith(
         process.cwd() + "/src/templates/server.hbs",
         "utf-8"
       );
     });
     it("for interfaces", () => {
-      writeOutputFile({}, "interfaces", "outputDir", "custom", "CustomTagname");
+      writeOutputFile(
+        {},
+        "interfaces",
+        "outputTest",
+        "custom",
+        "CustomTagname"
+      );
       expect(readFileSyncSpy).toHaveBeenCalledWith(
         process.cwd() + "/src/templates/interfaces.hbs",
         "utf-8"
@@ -126,12 +132,12 @@ describe("writeOutputFile()", () => {
         writeOutputFile(
           {},
           "angularClient",
-          "outputDir",
+          "outputTest",
           "my-custom.service",
           "my-custom"
         );
         expect(writeFileSyncSpy).toHaveBeenCalledWith(
-          process.cwd() + "/outputDir/my-custom.service.ts",
+          process.cwd() + "/outputTest/my-custom.service.ts",
           expect.stringMatching(/.*MyCustomService.*/),
           "utf-8"
         );

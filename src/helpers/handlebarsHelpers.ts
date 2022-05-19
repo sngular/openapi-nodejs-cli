@@ -17,4 +17,11 @@ export const setHandlebarsHelpers = () => {
   Handlebars.registerHelper("removeSymbol", (text: string): string => {
     return text.replaceAll(/[^a-z]+/gim, "");
   });
+
+  Handlebars.registerHelper("getType", (item: string | string[]): string => {
+    if (Array.isArray(item)) {
+      return item.join(" | ");
+    }
+    return item;
+  });
 };

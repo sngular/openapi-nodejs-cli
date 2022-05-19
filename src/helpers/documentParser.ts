@@ -44,25 +44,28 @@ export function parseDocument(data: DataObject) {
         }
 
         // Parse method responses
-        responses = parseResponses(responses);
-        data.paths[pathIndex].methods[methodIndex].responses =
-          parseResponses(responses);
+        if (responses) {
+          responses = parseResponses(responses);
+          data.paths[pathIndex].methods[methodIndex].responses =
+            parseResponses(responses);
 
-        // Parse response content if exists
-        responses.forEach(({ content }: DataObject, responseIndex: number) => {
-          if (content && content["application/json"]) {
-            const typeKeys = Object.keys(content["application/json"]);
-            data.paths[pathIndex].methods[methodIndex].responses[
-              responseIndex
-            ].content["application/json"].type = parseTypes(
-              content["application/json"][typeKeys[0]]
-            );
-          }
-        });
+          // Parse response content if exists
+          responses.forEach(
+            ({ content }: DataObject, responseIndex: number) => {
+              if (content && content["application/json"]) {
+                const typeKeys = Object.keys(content["application/json"]);
+                data.paths[pathIndex].methods[methodIndex].responses[
+                  responseIndex
+                ].content["application/json"].type = parseTypes(
+                  content["application/json"][typeKeys[0]]
+                );
+              }
+            }
+          );
+        }
       }
     );
   });
-
   return data;
 }
 

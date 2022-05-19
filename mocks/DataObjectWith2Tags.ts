@@ -1,4 +1,10 @@
 export const DataObjectWith2Tags = {
+    tags: [
+      {
+        name: 'users',
+        description: 'User related api endpoints'
+      }
+    ],
     components: {
       User: {
         type: "object",

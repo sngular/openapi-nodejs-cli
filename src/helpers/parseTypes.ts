@@ -2,14 +2,19 @@ import { DataObject } from "../types";
 import { capitalize } from "./capitalize";
 import { resolveSchemaName } from "./resolveSchemaName";
 
-export function parseTypes(schema: DataObject): string | undefined {
+export function parseTypes(schema: DataObject): string | string[] | undefined {
+  if (schema.oneOf) {
+    return schema.oneOf.map((item: DataObject) => parseTypes(item));
+  }
+
   if (schema.type) {
     switch (schema.type) {
       case "integer":
         return "number";
+
       case "array":
         if (schema.items.type) {
-          return `${schema.items.type}[]`;
+          return `${parseTypes(schema.items)}[]`;
         }
 
         if (schema.items["$ref"]) {
@@ -21,9 +26,12 @@ export function parseTypes(schema: DataObject): string | undefined {
         return schema.type;
     }
   }
-  if (schema["$ref"]) {
-    const schemaName = resolveSchemaName(schema["$ref"]);
 
+  if (schema["$ref"]) {
+    if (Array.isArray(schema["$ref"])) {
+      return schema["$ref"];
+    }
+    const schemaName = resolveSchemaName(schema["$ref"]);
     return capitalize(schemaName.slice(-1)[0]);
   }
 }
