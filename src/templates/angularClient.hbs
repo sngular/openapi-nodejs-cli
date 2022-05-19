@@ -26,8 +26,8 @@ export class {{tagname}}Service {
 
     {{#paths}}
     {{#methods}}
-    public {{operationId}}({{#parameters}}{{name}}: {{type}}, {{/parameters}}{{#with requestBody.content.[application/json]}}body: {{{this.type}}}{{/with}}){{#responses}}{{#with content.[application/json]}}: Observable<{{type}}>{{/with}}{{/responses}} {
-        return this.http.{{methodName}}{{#responses}}{{#with content.[application/json]}}<{{type}}>{{/with}}{{/responses}}(this.server + `{{{../route}}}`{{#requestBody}}, body{{/requestBody}}{{#unless requestBody}}, null{{/unless}}, { headers: this.headers });
+    public {{operationId}}({{#parameters}}{{name}}: {{type}}, {{/parameters}}{{#with requestBody.content.[application/json]}}body: {{{getType this.type}}}{{/with}}){{#responses}}{{#with content.[application/json]}}: Observable<{{getType type}}>{{/with}}{{/responses}} {
+        return this.http.{{methodName}}{{#responses}}{{#with content.[application/json]}}<{{getType type}}>{{/with}}{{/responses}}(`{{{../route}}}`{{#requestBody}}, body{{/requestBody}}{{#unless requestBody}}, null{{/unless}}, { headers: this.headers });
     }
     
     {{/methods}}

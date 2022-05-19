@@ -3,6 +3,6 @@ module.exports = {
   testEnvironment: "node",
   rootDir: './',
   roots: ["<rootDir>/src/"],
-  coverageReporters: ["clover", "json", "lcov", "text-summary"]
+  coverageReporters: ["clover", "json", "lcov", "text", "text-summary"]
 
 };

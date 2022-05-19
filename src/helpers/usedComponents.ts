@@ -1,19 +1,32 @@
 import { DataObject } from "../types";
+import { parseTypes } from "./parseTypes";
 
 export function getUsedComponents(data: DataObject): string[] {
-  const usedComponents: string[] = [];
+  let usedComponents: string[] = [];
   data.paths.forEach((path: DataObject) => {
     path.methods.forEach((method: DataObject) => {
-      method.responses
-        .filter(
-          (response: any) =>
-            response.content && response.content["application/json"]
-        )
-        .forEach((response: any) => {
-          usedComponents.push(response.content["application/json"].type);
-        });
+      if (method.responses) {
+        method.responses
+          .filter(
+            (response: any) =>
+              response.content && response.content["application/json"]
+          )
+          .forEach((response: any) => {
+            const parsedTypes = parseTypes(
+              response.content["application/json"]
+            );
+            if (parsedTypes) {
+              if (Array.isArray(parsedTypes)) {
+                usedComponents = usedComponents.concat(parsedTypes);
+              } else {
+                usedComponents.push(parsedTypes);
+              }
+            }
+          });
+      }
     });
   });
+
   return usedComponents;
 }
 
