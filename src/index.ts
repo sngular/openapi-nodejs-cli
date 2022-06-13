@@ -1,9 +1,9 @@
+#!/usr/bin/env node
 import { program } from "commander";
 import { generateClientCode } from "./client";
 import {
   getSpecificationFiles,
   log,
-  parseDocument,
   setHandlebarsHelpers,
 } from "./helpers";
 import { divideIntoDocumentsByTag } from "./helpers/divideIntoDocumentsByTag";
@@ -15,10 +15,9 @@ import { DataObject } from "./types";
 setHandlebarsHelpers();
 
 program
-  .version("0.0.1")
+  .version("0.1.0")
   .requiredOption("-i, --input <string...>", "OpenAPI spec URLs or directories")
   .option("-o, --output <string...>", "Output folder")
-  //  .option("--allowed-paths <string...>", "list of allowed paths from spec")
   .option("--client", "only generate client code")
   .option("--server", "only generate server code")
   .option("--angular", "generate client code for Angular");
