@@ -7,6 +7,7 @@ import {
   setHandlebarsHelpers,
 } from "./helpers";
 import { divideIntoDocumentsByTag } from "./helpers/divideIntoDocumentsByTag";
+import { hasRepeatedOperationIdErrors } from "./helpers/hasRepeatedOperationIdErrors";
 import { generateInterfaceCode } from "./interface";
 import { generateServerCode } from "./server";
 import { DataObject } from "./types";
@@ -27,7 +28,7 @@ const options = program.opts();
 
 const inputs: string[] = options.input;
 const allowedPaths: string[] = options.allowedPaths;
-const output: string[] = options.output
+const output: string[] = options.output;
 if (!options.client && !options.server) {
   options.client = true;
   options.server = true;
@@ -35,7 +36,7 @@ if (!options.client && !options.server) {
 
 async function main() {
   if (output && output.length > 1) {
-    log('You can only set one folder as output path', 'error');
+    log("You can only set one folder as output path", "error");
     process.exit(1);
   }
 
@@ -44,7 +45,14 @@ async function main() {
   const outputDir: string | undefined = (output && output[0]) || undefined;
   let usedComponents: { [key: string]: DataObject } = {};
 
-  documentList.forEach(document => {
+  // Recorremos los documentos para comprobar que los operationId son únicos para cada uno de ellos
+  if (hasRepeatedOperationIdErrors(documentList)) {
+    process.exit(9);
+  }
+
+  
+
+  documentList.forEach((document) => {
     usedComponents = {};
     Object.keys(document.document.components).forEach((key: string) => {
       if (!Object.keys(usedComponents).includes(key)) {
@@ -53,15 +61,24 @@ async function main() {
     });
 
     if (options.client) {
-      generateClientCode(document.document, options.angular, outputDir, document.tagName, document.description);
+      generateClientCode(
+        document.document,
+        options.angular,
+        outputDir,
+        document.tagName,
+        document.description
+      );
     }
     if (options.server) {
-      generateServerCode(document.document, outputDir, document.tagName, document.description);
+      generateServerCode(
+        document.document,
+        outputDir,
+        document.tagName,
+        document.description
+      );
     }
   });
-  generateInterfaceCode({components: usedComponents}, outputDir);
-
-
+  generateInterfaceCode({ components: usedComponents }, outputDir);
 }
 
 main();
