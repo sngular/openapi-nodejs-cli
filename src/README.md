@@ -1,4 +1,4 @@
-[Summary](#summary) · [Getting started](#getting-started) ·  [Support](#support) 
+[Summary](#summary) · [Getting started](#getting-started) · [Support](#support) · [License](#license)
 
 ## 📜 Summary
 `openapi-nodejs-cli` is a typescript code generator from an OpenApi document. 
@@ -43,3 +43,7 @@ We’ll be glad to talk and discuss how `openapi-nodejs-cli` can help you 😊
 
 Reach us through [GitHub issues](https://github.com/corunet/openapi-nodejs-cli/issues), [email](mailto:info@corunet.com) or [Twitter](https://twitter.com/corunet).
 
+## License
+
+This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at [https://mozilla.org/MPL/2.0/](https://mozilla.org/MPL/2.0/).
+ 
