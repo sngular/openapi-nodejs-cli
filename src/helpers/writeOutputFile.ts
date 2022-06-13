@@ -19,7 +19,7 @@ export const writeOutputFile = (
   }
 
   const source = fs.readFileSync(
-    path.join(process.cwd(), `/src/templates/${templateName}.hbs`),
+    path.join(__dirname, `/../templates/${templateName}.hbs`),
     "utf-8"
   );
 

@@ -13,8 +13,6 @@ export function hasRepeatedOperationIdErrors(
     const operationIdUsage: DataObject = {};
 
     file.document.paths.forEach((path: DataObject) => {
-      console.log(path.methods);
-
       path.methods.forEach((method: DataObject) => {
         if (operationIdUsage[method.operationId] === undefined) {
           operationIdUsage[method.operationId] = 1;
