@@ -1,3 +1,5 @@
+[![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)](https://github.com/corunet/openapi-nodejs-cli/blob/main/LICENSE)
+
 # OpenAPI NodeJS CLI
 
 This generator requires the Node version >=17.7.1 to run properly

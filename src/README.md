@@ -1,3 +1,5 @@
+[![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)](https://github.com/corunet/openapi-nodejs-cli/blob/main/LICENSE)
+
 [Summary](#summary) · [Getting started](#getting-started) · [Support](#support) · [License](#license)
 
 ## 📜 Summary
@@ -45,5 +47,7 @@ Reach us through [GitHub issues](https://github.com/corunet/openapi-nodejs-cli/i
 
 ## License
 
+
+
 This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at [https://mozilla.org/MPL/2.0/](https://mozilla.org/MPL/2.0/).
- 
+[![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)](https://github.com/corunet/openapi-nodejs-cli/blob/main/LICENSE)
