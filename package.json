@@ -1,6 +1,6 @@
 {
   "name": "@corunet/openapi-nodejs-cli",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Generates nodejs, typescript client and Angular client methods from an OpenApi document",
   "keywords": [
     "nodejs",
