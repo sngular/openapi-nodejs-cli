@@ -1,37 +1,53 @@
-# OpenAPI NodeJS CLI
+[![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)](https://github.com/corunet/openapi-nodejs-cli/blob/main/LICENSE)
 
-This generator requires the Node version >=17.7.1 to run properly
+[Summary](#summary) · [Getting started](#getting-started) · [Support](#support) · [License](#license)
 
-## Install dependencies
+## 📜 Summary
+`openapi-nodejs-cli` is a typescript code generator from an OpenApi document. 
 
-To install dependencies run:
-`npm i`
+`openapi-nodejs-cli` can generate nodejs, typescript client and Angular client methods from an OpenApi document.
 
-## Build
 
-Build the project with `npm run build`
+## 🚀 Getting Started
 
-## Usage
+### How to install 
 
-To view usage of the cli run:
+```bash
+npm i @corunet/openapi-nodejs-cli --global
+```
 
-`npm start -- -h`
+### 🧑🏻‍💻 Usage
 
-### Options
+```bash
+openapi-nodejs-cli input/schema.yaml
+```
 
-- `-i <string...>`: list of URLs and/or directories to the list of OpenAPI specification used to generate the code
-- `--allowed-paths <string..>`: list of paths allowed to be used to generate the code
-- `--client`: generate client code only
-- `--server`: generate server code only
+You can retrieve an option list with this command:
+```
+openapi-nodejs-cli --help
+```
 
-If `--client` and `--server` are not set, both client and server code will be generated.
+```
+Usage: openapi-nodejs-cli [options]
 
-### Examples
+Options:
+  -V, --version             output the version number
+  -i, --input <string...>   OpenAPI spec URLs or directories
+  -o, --output <string...>  Output folder
+  --client                  only generate client code
+  --server                  only generate server code
+  --angular                 generate client code for Angular
+  -h, --help                display help for command
+```
+## 🧰 Support
 
-- Generate code from 2 OpenAPI specification files (URLs)
+We’ll be glad to talk and discuss how `openapi-nodejs-cli` can help you 😊
 
-  `npm start -- -i http://127.0.0.1:8080/kafka.yaml http://127.0.0.1:8080/schemaRegistry.yaml`
+Reach us through [GitHub issues](https://github.com/corunet/openapi-nodejs-cli/issues), [email](mailto:info@corunet.com) or [Twitter](https://twitter.com/corunet).
 
-- Only generate client code from 1 file form a directory using only the given path
+## License
 
-  `npm start -- -i /Users/user/specification/kafka.yaml --allowed-paths /kafka --client`
+
+
+This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at [https://mozilla.org/MPL/2.0/](https://mozilla.org/MPL/2.0/).
+[![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)](https://github.com/corunet/openapi-nodejs-cli/blob/main/LICENSE)
