@@ -18,7 +18,7 @@
     "coverage": "jest --coverage",
     "clean": "rm -rf build output",
     "build": "tsc",
-    "postbuild": "cp src/package.production.json build/openapi-nodejs-cli/package.json && cp src/README.md build/openapi-nodejs-cli/README.md && cp -R src/templates build/openapi-nodejs-cli/templates && cp LICENSE build/openapi-nodejs-cli/LICENSE",
+    "postbuild": "cp src/package.production.json build/openapi-nodejs-cli/package.json && cp README.md build/openapi-nodejs-cli/README.md && cp -R src/templates build/openapi-nodejs-cli/templates && cp LICENSE build/openapi-nodejs-cli/LICENSE",
     "start": "node build/openapi-nodejs-cli/index.js",
     "format": "prettier --write .",
     "lint": "eslint src/**/*.ts",
