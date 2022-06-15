@@ -1,6 +1,12 @@
 [![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)](https://github.com/corunet/openapi-nodejs-cli/blob/main/LICENSE)
 
-[Summary](#summary) · [Getting started](#getting-started) · [Support](#support) · [License](#license)
+<p align="center">
+<a href="#-summary">Summary</a> · 
+<a href="#-getting-started">Getting started</a> ·  
+<a href="#-support">Support</a> · 
+<a href="#license">License</a> 
+</p> 
+
 
 ## 📜 Summary
 `openapi-nodejs-cli` is a typescript code generator from an OpenApi document. 
