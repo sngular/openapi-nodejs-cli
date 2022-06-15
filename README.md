@@ -1,23 +1,24 @@
+# README
+
 [![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)](https://github.com/corunet/openapi-nodejs-cli/blob/main/LICENSE)
 [![npm version](https://badge.fury.io/js/@corunet%2Fopenapi-nodejs-cli.svg)](https://www.npmjs.com/package/@corunet%2Fopenapi-nodejs-cli)
 
 <p align="center">
-<a href="#-summary">Summary</a> · 
-<a href="#-getting-started">Getting started</a> ·  
-<a href="#-support">Support</a> · 
-<a href="#license">License</a> 
-</p> 
+<a href="#-summary">Summary</a> ·
+<a href="#-getting-started">Getting started</a> ·
+<a href="#-support">Support</a> ·
+<a href="#license">License</a>
+</p>
 
 ## 📜 Summary
 
-`openapi-nodejs-cli` is a typescript code generator from an OpenApi document. 
+`openapi-nodejs-cli` is a typescript code generator from an OpenApi document.
 
 `openapi-nodejs-cli` can generate nodejs, typescript client and Angular client methods from an OpenApi document.
 
-
 ## 🚀 Getting Started
 
-### How to install 
+### How to install
 
 ```bash
 npm i @corunet/openapi-nodejs-cli --global
@@ -30,11 +31,12 @@ openapi-nodejs-cli input/schema.yaml
 ```
 
 You can retrieve an option list with this command:
-```
+
+```bash
 openapi-nodejs-cli --help
 ```
 
-```
+```bash
 Usage: openapi-nodejs-cli [options]
 
 Options:
@@ -46,6 +48,7 @@ Options:
   --angular                 generate client code for Angular
   -h, --help                display help for command
 ```
+
 ## 🧰 Support
 
 We’ll be glad to talk and discuss how `openapi-nodejs-cli` can help you 😊
