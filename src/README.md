@@ -1,4 +1,6 @@
 [![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)](https://github.com/corunet/openapi-nodejs-cli/blob/main/LICENSE)
+[![npm version](https://badge.fury.io/js/@corunet%2Fopenapi-nodejs-cli.svg)](https://www.npmjs.com/package/@corunet%2Fopenapi-nodejs-cli)
+
 
 <p align="center">
 <a href="#-summary">Summary</a> · 
