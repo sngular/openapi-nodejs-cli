@@ -1,0 +1,20 @@
+import axios from 'axios'
+
+{{#if description}}
+/**
+  {{description}}
+ */
+{{/if}}
+
+{{#servers}}
+const SERVER = '{{{url}}}';
+{{/servers}}
+
+{{#paths}}
+{{#methods}}
+export const {{{operationId}}} = async ({{#parameters}}{{name}},{{/parameters}}{{#with requestBody.content.[application/json]}}body{{/with}}) => {
+    return await axios.{{methodName}}(`${SERVER}{{{../route}}}`{{#requestBody}}, body{{/requestBody}})
+}
+{{/methods}}
+
+{{/paths}}

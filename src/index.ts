@@ -23,13 +23,17 @@ program
   .option("-o, --output <string...>", "Output folder")
   .option("--client", "only generate client code")
   .option("--server", "only generate server code")
-  .option("--angular", "generate client code for Angular");
+  .option("--angular", "generate client code for Angular")
+  .option(
+    "--javascript",
+    "generate the code as plain JavaScript instead of TypeScript"
+  )
+  .helpOption("-h, --help", "shows this help");
 
 program.parse();
 const options = program.opts();
 
 const inputs: string[] = options.input;
-const allowedPaths: string[] = options.allowedPaths;
 const output: string[] = options.output;
 if (!options.client && !options.server) {
   options.client = true;
@@ -39,6 +43,11 @@ if (!options.client && !options.server) {
 async function main() {
   if (output && output.length > 1) {
     log("You can only set one folder as output path", "error");
+    process.exit(1);
+  }
+
+  if (options.angular && options.javascript) {
+    log("Options --javascript and --angular are not compatibles", "error");
     process.exit(1);
   }
 
@@ -64,6 +73,7 @@ async function main() {
       generateClientCode(
         document.document,
         options.angular,
+        options.javascript,
         outputDir,
         document.tagName,
         document.description
@@ -72,13 +82,16 @@ async function main() {
     if (options.server) {
       generateServerCode(
         document.document,
+        options.javascript,
         outputDir,
         document.tagName,
         document.description
       );
     }
   });
-  generateInterfaceCode({ components: usedComponents }, outputDir);
+  if (!options.javascript) {
+    generateInterfaceCode({ components: usedComponents }, outputDir);
+  }
 }
 
 main();

@@ -1,4 +1,7 @@
 import express, { NextFunction, Request, Response } from 'express';
+{{#each components}}
+import {{@key}} from '../interfaces/{{@key}}.ts';
+{{/each}}
 
 {{#if description}}
 /**
@@ -7,14 +10,6 @@ import express, { NextFunction, Request, Response } from 'express';
 {{/if}}
 
 const app = express();
-
-{{#components.schemas}}
-interface {{name}} {
-    {{#each properties}}
-        {{@key}}{{#unless (includes ../required @key)}}?{{/unless}}: {{{this.type}}}
-    {{/each}}
-}
-{{/components.schemas}}
 
 {{#paths}}
 {{#methods}}

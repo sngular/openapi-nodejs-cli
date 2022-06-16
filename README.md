@@ -47,7 +47,8 @@ Options:
   --client                  only generate client code
   --server                  only generate server code
   --angular                 generate client code for Angular
-  -h, --help                display help for command
+  --javascript              generate the code as plain JavaScript instead of TypeScript
+  -h, --help                shows this help
 ```
 
 ## 🧰 Support

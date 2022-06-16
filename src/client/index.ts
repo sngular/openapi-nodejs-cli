@@ -10,6 +10,7 @@ import { DataObject } from "../types";
 export const generateClientCode = (
   data: DataObject,
   angular: boolean = false,
+  javascript: boolean = false,
   outputDir: string = "output",
   tagname: string = "custom",
   fileComments: string = ""
@@ -21,14 +22,25 @@ export const generateClientCode = (
   );
   data.components = cleanComponents(data.components, usedComponents);
 
-  if (angular) {
+  if (javascript) {
+    writeOutputFile(
+      data,
+      "javascriptClient",
+      `${outputDir}/client`,
+      tagname,
+      tagname,
+      fileComments,
+      "js"
+    );
+  } else if (angular) {
     writeOutputFile(
       data,
       "angularClient",
       `${outputDir}/client`,
       `${tagname}.service`,
       tagname,
-      fileComments
+      fileComments,
+      "ts"
     );
   } else {
     writeOutputFile(
@@ -37,7 +49,8 @@ export const generateClientCode = (
       `${outputDir}/client`,
       tagname,
       tagname,
-      fileComments
+      fileComments,
+      "ts"
     );
   }
 };
