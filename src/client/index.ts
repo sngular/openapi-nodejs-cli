@@ -22,7 +22,6 @@ export const generateClientCode = (
   );
   data.components = cleanComponents(data.components, usedComponents);
 
-
   if (javascript) {
     writeOutputFile(
       data,

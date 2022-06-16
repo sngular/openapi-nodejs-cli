@@ -13,7 +13,13 @@ import { toPascalCase } from "./toPascalCase";
 
 export const writeOutputFile = (
   data: DataObject,
-  templateName: "client" | "server" | "angularClient" | "interfaces" | "javascriptClient" | "javascriptServer",
+  templateName:
+    | "client"
+    | "server"
+    | "angularClient"
+    | "interfaces"
+    | "javascriptClient"
+    | "javascriptServer",
   outputDir: string = "output",
   filename: string = "index",
   tagname: string = "Custom",
