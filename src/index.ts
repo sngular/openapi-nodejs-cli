@@ -34,7 +34,6 @@ program.parse();
 const options = program.opts();
 
 const inputs: string[] = options.input;
-const allowedPaths: string[] = options.allowedPaths;
 const output: string[] = options.output;
 if (!options.client && !options.server) {
   options.client = true;
@@ -44,6 +43,11 @@ if (!options.client && !options.server) {
 async function main() {
   if (output && output.length > 1) {
     log("You can only set one folder as output path", "error");
+    process.exit(1);
+  }
+
+  if (options.angular && options.javascript) {
+    log("Options --javascript and --angular are not compatibles", "error");
     process.exit(1);
   }
 
