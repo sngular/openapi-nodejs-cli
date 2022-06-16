@@ -13,11 +13,12 @@ import { toPascalCase } from "./toPascalCase";
 
 export const writeOutputFile = (
   data: DataObject,
-  templateName: "client" | "server" | "angularClient" | "interfaces",
+  templateName: "client" | "server" | "angularClient" | "interfaces" | "javascriptClient" | "javascriptServer",
   outputDir: string = "output",
   filename: string = "index",
   tagname: string = "Custom",
-  fileComments: string = ""
+  fileComments: string = "",
+  extension: string = "ts"
 ) => {
   if (!fs.existsSync(path.join(process.cwd(), outputDir))) {
     fs.mkdirSync(path.join(process.cwd(), outputDir), { recursive: true });
@@ -39,11 +40,11 @@ export const writeOutputFile = (
     `Writing ${templateName} output file on ${path.join(
       process.cwd(),
       outputDir
-    )} as ${filename}.ts`,
+    )} as ${filename}.${extension}`,
     templateName
   );
   fs.writeFileSync(
-    path.join(process.cwd(), `/${outputDir}/${filename}.ts`),
+    path.join(process.cwd(), `/${outputDir}/${filename}.${extension}`),
     output,
     "utf-8"
   );

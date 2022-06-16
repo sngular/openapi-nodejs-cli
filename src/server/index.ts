@@ -8,6 +8,7 @@ import { DataObject } from "../types";
 
 export const generateServerCode = (
   data: DataObject,
+  javascript: boolean,
   outputDir: string = "output",
   filename: string = "index",
   tagName: string = "",
@@ -15,12 +16,25 @@ export const generateServerCode = (
 ) => {
   log("Generating server code", "server");
 
-  writeOutputFile(
-    data,
-    "server",
-    `${outputDir}/server`,
-    filename,
-    tagName,
-    fileComments
-  );
+  if (javascript) {
+    writeOutputFile(
+      data,
+      "javascriptServer",
+      `${outputDir}/server`,
+      filename,
+      tagName,
+      fileComments,
+      "js"
+    );
+  } else {
+    writeOutputFile(
+      data,
+      "server",
+      `${outputDir}/server`,
+      filename,
+      tagName,
+      fileComments,
+      "ts"
+    );
+  }
 };
