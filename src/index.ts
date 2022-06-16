@@ -8,11 +8,7 @@
 
 import { program } from "commander";
 import { generateClientCode } from "./client";
-import {
-  getSpecificationFiles,
-  log,
-  setHandlebarsHelpers,
-} from "./helpers";
+import { getSpecificationFiles, log, setHandlebarsHelpers } from "./helpers";
 import { divideIntoDocumentsByTag } from "./helpers/divideIntoDocumentsByTag";
 import { hasRepeatedOperationIdErrors } from "./helpers/hasRepeatedOperationIdErrors";
 import { generateInterfaceCode } from "./interface";
@@ -55,8 +51,6 @@ async function main() {
   if (hasRepeatedOperationIdErrors(documentList)) {
     process.exit(9);
   }
-
-  
 
   documentList.forEach((document) => {
     usedComponents = {};

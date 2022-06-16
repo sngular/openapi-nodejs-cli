@@ -2,6 +2,7 @@
 
 [![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)](https://github.com/corunet/openapi-nodejs-cli/blob/main/LICENSE)
 [![npm version](https://badge.fury.io/js/@corunet%2Fopenapi-nodejs-cli.svg)](https://www.npmjs.com/package/@corunet%2Fopenapi-nodejs-cli)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/13bcbcc9cd144302be8c94999566774f)](https://www.codacy.com/gh/corunet/openapi-nodejs-cli/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=corunet/openapi-nodejs-cli&amp;utm_campaign=Badge_Grade)
 
 <p align="center">
 <a href="#-summary">Summary</a> ·
