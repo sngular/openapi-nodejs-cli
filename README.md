@@ -47,7 +47,7 @@ Options:
   --client                  only generate client code
   --server                  only generate server code
   --angular                 generate client code for Angular
-  --javascript              generate the code as plain JavaScript instead of TypeScript
+  --i-want-output-files-in-javascript-format-because-i-dont-want-to-have-to-worry-about-types              generate the code as plain JavaScript instead of TypeScript
   -h, --help                shows this help
 ```
 

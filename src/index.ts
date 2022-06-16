@@ -18,17 +18,17 @@ import { DataObject } from "./types";
 setHandlebarsHelpers();
 
 program
-  .version("0.1.0")
-  .requiredOption("-i, --input <string...>", "OpenAPI spec URLs or directories")
-  .option("-o, --output <string...>", "Output folder")
-  .option("--client", "only generate client code")
-  .option("--server", "only generate server code")
-  .option("--angular", "generate client code for Angular")
-  .option(
-    "--javascript",
-    "generate the code as plain JavaScript instead of TypeScript"
-  )
-  .helpOption("-h, --help", "shows this help");
+	.version("0.1.0")
+	.requiredOption("-i, --input <string...>", "OpenAPI spec URLs or directories")
+	.option("-o, --output <string...>", "Output folder")
+	.option("--client", "only generate client code")
+	.option("--server", "only generate server code")
+	.option("--angular", "generate client code for Angular")
+	.option(
+		"--i-want-output-files-in-javascript-format-because-i-dont-want-to-have-to-worry-about-types",
+		"generate the code as plain JavaScript instead of TypeScript"
+	)
+	.helpOption("-h, --help", "shows this help");
 
 program.parse();
 const options = program.opts();
@@ -46,10 +46,16 @@ async function main() {
     process.exit(1);
   }
 
-  if (options.angular && options.javascript) {
-    log("Options --javascript and --angular are not compatibles", "error");
-    process.exit(1);
-  }
+  if (
+		options.angular &&
+		options.iWantOutputFilesInJavascriptFormatBecauseIDontWantToHaveToWorryAboutTypes
+	) {
+		log(
+			"Options --i-want-output-files-in-javascript-format-because-i-dont-want-to-have-to-worry-about-types and --angular are not compatibles",
+			"error"
+		);
+		process.exit(1);
+	}
 
   const data: DataObject = await getSpecificationFiles(inputs);
   const documentList: DataObject[] = divideIntoDocumentsByTag(data);
@@ -71,27 +77,29 @@ async function main() {
 
     if (options.client) {
       generateClientCode(
-        document.document,
-        options.angular,
-        options.javascript,
-        outputDir,
-        document.tagName,
-        document.description
-      );
+				document.document,
+				options.angular,
+				options.iWantOutputFilesInJavascriptFormatBecauseIDontWantToHaveToWorryAboutTypes,
+				outputDir,
+				document.tagName,
+				document.description
+			);
     }
     if (options.server) {
       generateServerCode(
-        document.document,
-        options.javascript,
-        outputDir,
-        document.tagName,
-        document.description
-      );
+				document.document,
+				options.iWantOutputFilesInJavascriptFormatBecauseIDontWantToHaveToWorryAboutTypes,
+				outputDir,
+				document.tagName,
+				document.description
+			);
     }
   });
-  if (!options.javascript) {
-    generateInterfaceCode({ components: usedComponents }, outputDir);
-  }
+  if (
+		!options.iWantOutputFilesInJavascriptFormatBecauseIDontWantToHaveToWorryAboutTypes
+	) {
+		generateInterfaceCode({ components: usedComponents }, outputDir);
+	}
 }
 
 main();
