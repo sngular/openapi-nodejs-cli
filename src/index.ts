@@ -24,8 +24,11 @@ program
   .option("--client", "only generate client code")
   .option("--server", "only generate server code")
   .option("--angular", "generate client code for Angular")
-  .option("--javascript", "generate the code as plain JavaScript instead of TypeScript")
-  .helpOption('-h, --help', 'shows this help');
+  .option(
+    "--javascript",
+    "generate the code as plain JavaScript instead of TypeScript"
+  )
+  .helpOption("-h, --help", "shows this help");
 
 program.parse();
 const options = program.opts();
