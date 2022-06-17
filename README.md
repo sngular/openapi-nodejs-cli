@@ -19,6 +19,10 @@
 
 ## 🚀 Getting Started
 
+### Node version
+
+This generator requires the Node version >=17.7.1 to run properly
+
 ### How to install
 
 ```bash
