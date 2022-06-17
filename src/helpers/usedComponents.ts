@@ -41,10 +41,12 @@ export function cleanComponents(
 ): DataObject {
   const cleanedComponentList: DataObject = {};
 
-  Object.keys(components).forEach((key: string) => {
-    if (usedComponents.includes(key)) {
-      cleanedComponentList[key] = components[key];
-    }
-  });
+  if (!!components) {
+    Object.keys(components).forEach((key: string) => {
+      if (usedComponents.includes(key)) {
+        cleanedComponentList[key] = components[key];
+      }
+    });
+  }
   return cleanedComponentList;
 }
