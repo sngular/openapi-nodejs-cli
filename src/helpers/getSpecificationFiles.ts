@@ -8,6 +8,8 @@ import YAML from "yaml";
 import { readFileSync } from "fs";
 import { DataObject } from "../types";
 import { capitalize, log, getComponentsFiles, parseTypes } from ".";
+import { getComponentPath } from "./getComponentPath";
+import { isUrl } from "./isUrl";
 
 export async function getSpecificationFiles(
   pathsToSpec: string[]
@@ -17,8 +19,7 @@ export async function getSpecificationFiles(
 
   for (const pathToSpec of pathsToSpec) {
     log(`Getting OpenAPI specification file from ${pathToSpec}`);
-    const isUrl = pathToSpec.startsWith("http");
-    let file = await getFile(isUrl, pathToSpec);
+    let file = await getFile(isUrl(pathToSpec), pathToSpec);
 
     const refRegex = /"\$ref":"[^},]+/gim;
     let jsonData: DataObject = {};
@@ -62,58 +63,40 @@ export async function getSpecificationFiles(
       });
 
       if (refMatch !== null) {
-        const refString = refMatch[0].split(":")[1].replaceAll('"', "");
-        let componentsPath: string = "";
-        let isUrl: boolean = false;
+        const componentsPath: string | null = getComponentPath(
+          refMatch[0],
+          pathToSpec
+        );
 
+        console.log("componentsPath", componentsPath);
 
-        if (refString.startsWith("//") || (refString === "http" || refString === "https")) {
-          isUrl = true;
-
-          if (refString.startsWith("//")) {
-          componentsPath = [
-            pathToSpec.split(":")[0],
-            refString.split("#")[0],
-          ].join(":");
-        } else {
-          componentsPath = refMatch[0]
-            .split(":")
-            .slice(1)
-            .map((slug: string) => slug.replaceAll('"', ""))
-            .join(":")
-            .split("#")[0];
-        }
-        } else if (refString.includes("#") && !refString.startsWith("#")) {
-          const componentsBasePath = pathToSpec
-            .split("/")
-            .slice(0, -1)
-            .join("/");
-          componentsPath = [componentsBasePath, refString.split("#")[0]].join(
-            "/"
+        if (componentsPath) {
+          const response = await getComponentsFiles(
+            componentsPath,
+            isUrl(componentsPath)
           );
-        } 
-        const response = await getComponentsFiles(componentsPath, isUrl);
-        let componentsData: DataObject = {};
+          let componentsData: DataObject = {};
 
-        const fileExtension = componentsPath
-          .split(".")
-          .slice(-1)[0]
-          .toLowerCase();
+          const fileExtension = componentsPath
+            .split(".")
+            .slice(-1)[0]
+            .toLowerCase();
 
-        if (fileExtension === "yaml" || fileExtension === "yml") {
-          componentsData = YAML.parse(response);
+          if (fileExtension === "yaml" || fileExtension === "yml") {
+            componentsData = YAML.parse(response);
+          }
+
+          if (fileExtension === "json") {
+            componentsData = JSON.parse(response);
+          }
+
+          const componentKeys = Object.keys(componentsData.components);
+
+          componentKeys.forEach((key: string) => {
+            interfacesData[capitalize(key)] = componentsData.components[key];
+          });
+          data = { ...data, components: interfacesData };
         }
-
-        if (fileExtension === "json") {
-          componentsData = JSON.parse(response);
-        }
-
-        const componentKeys = Object.keys(componentsData.components);
-
-        componentKeys.forEach((key: string) => {
-          interfacesData[capitalize(key)] = componentsData.components[key];
-        });
-        data = { ...data, components: interfacesData };
       }
     }
 
