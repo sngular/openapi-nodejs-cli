@@ -18,6 +18,7 @@ describe("getComponentsFiles()", () => {
             config?: AxiosRequestConfig<unknown> | undefined
           ): Promise<unknown> => {
             return new Promise((resolve) => {
+              // eslint-disable-next-line no-console
               console.log(url, config, resolve);
             });
           }
@@ -40,6 +41,7 @@ describe("getComponentsFiles()", () => {
               | null
               | undefined
           ): string => {
+            // eslint-disable-next-line no-console
             console.log(filePath, encoding);
             return "done";
           }
