@@ -13,17 +13,9 @@ import {{@key}} from '../interfaces/{{@key}}.ts';
 const SERVER = '{{{url}}}'
 {{/servers}}
 
-{{#components.schemas}}
-interface {{name}} {
-    {{#each properties}}
-        {{@key}}{{#unless (includes ../required @key)}}?{{/unless}}: {{{this.type}}}
-    {{/each}}
-}
-{{/components.schemas}}
-
 {{#paths}}
 {{#methods}}
-export const {{{operationId}}} = async ({{#parameters}}{{name}}: {{type}}, {{/parameters}}{{#with requestBody.content.[application/json]}}body: {{{this.type}}}{{/with}}){{#responses}}{{#with content.[application/json]}}: {{type}}{{/with}}{{/responses}} => {
+export const {{{operationId}}} = async ({{#parameters}}{{name}}: {{getType type}}, {{/parameters}}{{#with requestBody.content.[application/json]}}body: {{{getType this.type}}}{{/with}}){{#responses}}{{#with content.[application/json]}}: {{getType type}}{{/with}}{{/responses}} => {
     return await axios.{{methodName}}(`${SERVER}{{{../route}}}`{{#requestBody}}, body{{/requestBody}})
 }
 {{/methods}}
