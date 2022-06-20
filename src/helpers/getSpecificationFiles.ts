@@ -68,8 +68,6 @@ export async function getSpecificationFiles(
           pathToSpec
         );
 
-        console.log("componentsPath", componentsPath);
-
         if (componentsPath) {
           const response = await getComponentsFiles(
             componentsPath,
