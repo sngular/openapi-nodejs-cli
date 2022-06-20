@@ -27,6 +27,7 @@ export function parseTypes(schema: DataObject): string | string[] | undefined {
             `${resolveSchemaName(schema.items["$ref"]).slice(-1)[0]}[]`
           );
         }
+        break;
       default:
         return schema.type;
     }

@@ -29,7 +29,9 @@ export function hasRepeatedOperationIdErrors(
 
     const repeatedOperationIds = Object.keys(
       Object.fromEntries(
-        Object.entries(operationIdUsage).filter(([_, v]) => (v as number) > 1)
+        Object.entries(operationIdUsage).filter(
+          (item) => (item[1] as number) > 1
+        )
       )
     );
 

@@ -13,10 +13,10 @@ export function getUsedComponents(data: DataObject): string[] {
       if (method.responses) {
         method.responses
           .filter(
-            (response: any) =>
+            (response: DataObject) =>
               response.content && response.content["application/json"]
           )
-          .forEach((response: any) => {
+          .forEach((response: DataObject) => {
             const parsedTypes = parseTypes(
               response.content["application/json"]
             );
@@ -41,7 +41,7 @@ export function cleanComponents(
 ): DataObject {
   const cleanedComponentList: DataObject = {};
 
-  if (!!components) {
+  if (components) {
     Object.keys(components).forEach((key: string) => {
       if (usedComponents.includes(key)) {
         cleanedComponentList[key] = components[key];

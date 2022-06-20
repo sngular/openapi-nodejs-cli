@@ -8,10 +8,6 @@ import { DocumentListWithRepeatedOperationIds } from "../../mocks/DocumentListWi
 import { hasRepeatedOperationIdErrors } from "./hasRepeatedOperationIdErrors";
 
 describe("checkRepeatedOperationIdErrors()", () => {
-  let exit: any;
-  beforeAll(() => {
-    exit = jest.spyOn(process, "exit");
-  });
   describe("passing sample DataObject without repeated operationIds", () => {
     it("should return true", () => {
       expect(
