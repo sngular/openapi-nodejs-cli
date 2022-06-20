@@ -8,6 +8,8 @@ import YAML from "yaml";
 import { readFileSync } from "fs";
 import { DataObject } from "../types";
 import { capitalize, log, getComponentsFiles, parseTypes } from ".";
+import { getComponentPath } from "./getComponentPath";
+import { isUrl } from "./isUrl";
 
 export async function getSpecificationFiles(
   pathsToSpec: string[]
@@ -17,8 +19,7 @@ export async function getSpecificationFiles(
 
   for (const pathToSpec of pathsToSpec) {
     log(`Getting OpenAPI specification file from ${pathToSpec}`);
-    const isUrl = pathToSpec.startsWith("http");
-    let file = await getFile(isUrl, pathToSpec);
+    let file = await getFile(isUrl(pathToSpec), pathToSpec);
 
     const refRegex = /"\$ref":"[^},]+/gim;
     let jsonData: DataObject = {};
@@ -62,19 +63,18 @@ export async function getSpecificationFiles(
       });
 
       if (refMatch !== null) {
-        const refString = refMatch[0].split(":")[1].replaceAll('"', "");
+        const componentsPath: string | null = getComponentPath(
+          refMatch[0],
+          pathToSpec
+        );
 
-        if (refString.includes("#") && !refString.startsWith("#")) {
-          const componentsBasePath = pathToSpec
-            .split("/")
-            .slice(0, -1)
-            .join("/");
-          const componentsPath = [
-            componentsBasePath,
-            refString.split("#")[0],
-          ].join("/");
+        console.log("componentsPath", componentsPath);
 
-          const response = await getComponentsFiles(componentsPath, isUrl);
+        if (componentsPath) {
+          const response = await getComponentsFiles(
+            componentsPath,
+            isUrl(componentsPath)
+          );
           let componentsData: DataObject = {};
 
           const fileExtension = componentsPath

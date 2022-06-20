@@ -63,12 +63,13 @@ async function main() {
 
   documentList.forEach((document) => {
     usedComponents = {};
-    Object.keys(document.document.components).forEach((key: string) => {
-      if (!Object.keys(usedComponents).includes(key)) {
-        usedComponents[key] = document.document.components[key];
-      }
-    });
-
+    if (!!document.document.components) {
+      Object.keys(document.document.components).forEach((key: string) => {
+        if (!Object.keys(usedComponents).includes(key)) {
+          usedComponents[key] = document.document.components[key];
+        }
+      });
+    }
     if (options.client) {
       generateClientCode(
         document.document,
