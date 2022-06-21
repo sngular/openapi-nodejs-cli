@@ -33,7 +33,7 @@ npm i @corunet/openapi-nodejs-cli --global
 ### 🧑🏻‍💻 Usage
 
 ```bash
-openapi-nodejs-cli input/schema.yaml
+openapi-nodejs-cli -i input/schema.yaml
 ```
 
 You can retrieve an option list with this command:
