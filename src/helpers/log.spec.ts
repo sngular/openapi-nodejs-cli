@@ -7,22 +7,28 @@ import { log } from "./log";
 
 describe("log()", () => {
   it("console.log has been called", () => {
+    // eslint-disable-next-line no-console
     console.log = jest.fn();
     log("Hello");
+    // eslint-disable-next-line no-console
     expect(console.log).toHaveBeenCalled();
   });
 
   it("without type parameters, console.log receives 'INFO' log", () => {
+    // eslint-disable-next-line no-console
     console.log = jest.fn();
     log("Log message");
+    // eslint-disable-next-line no-console
     expect(console.log).toHaveBeenCalledWith(
       expect.stringMatching(/\[INFO\].*Log message.*/)
     );
   });
 
   it("with 'error' type parameters, console.log receives 'ERROR' log", () => {
+    // eslint-disable-next-line no-console
     console.log = jest.fn();
     log("Log message", "error");
+    // eslint-disable-next-line no-console
     expect(console.log).toHaveBeenCalledWith(
       expect.stringMatching(/\[ERROR\].*Log message.*/)
     );

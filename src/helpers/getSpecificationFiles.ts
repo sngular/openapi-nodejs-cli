@@ -15,11 +15,11 @@ export async function getSpecificationFiles(
   pathsToSpec: string[]
 ): Promise<DataObject> {
   let data: DataObject = {};
-  let interfacesData: { [key: string]: string } = {};
+  const interfacesData: { [key: string]: string } = {};
 
   for (const pathToSpec of pathsToSpec) {
     log(`Getting OpenAPI specification file from ${pathToSpec}`);
-    let file = await getFile(isUrl(pathToSpec), pathToSpec);
+    const file = await getFile(isUrl(pathToSpec), pathToSpec);
 
     const refRegex = /"\$ref":"[^},]+/gim;
     let jsonData: DataObject = {};
@@ -112,7 +112,7 @@ async function getFile(isUrl: boolean, pathToSpec: string) {
   let file = "";
 
   if (isUrl) {
-    let response = await axios.get(pathToSpec);
+    const response = await axios.get(pathToSpec);
     file = response.data;
   } else {
     file = readFileSync(pathToSpec, "utf-8");

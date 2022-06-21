@@ -15,9 +15,12 @@ describe("getComponentsFiles()", () => {
         .mockImplementation(
           (
             url: string,
-            config?: AxiosRequestConfig<any> | undefined
+            config?: AxiosRequestConfig<unknown> | undefined
           ): Promise<unknown> => {
-            return new Promise((resolve) => {});
+            return new Promise((resolve) => {
+              // eslint-disable-next-line no-console
+              console.log(url, config, resolve);
+            });
           }
         );
       getComponentsFiles("http://localhost", true);
@@ -34,10 +37,12 @@ describe("getComponentsFiles()", () => {
             filePath: PathOrFileDescriptor,
             encoding:
               | BufferEncoding
-              | (any & { flag?: string | undefined })
+              | (unknown & { flag?: string | undefined })
               | null
               | undefined
           ): string => {
+            // eslint-disable-next-line no-console
+            console.log(filePath, encoding);
             return "done";
           }
         );

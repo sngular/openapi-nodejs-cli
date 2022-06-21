@@ -3,7 +3,7 @@
  *  License, v. 2.0. If a copy of the MPL was not distributed with this
  *  file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
-import { capitalize, resolveSchemaName, parseTypes } from ".";
+import { resolveSchemaName, parseTypes } from ".";
 import { DataObject, Path } from "../types";
 
 export function parseDocument(data: DataObject) {
@@ -176,15 +176,9 @@ function parseObjectPropertiesTypes(properties: DataObject) {
  */
 function parsePaths(paths: DataObject): Path[] {
   return Object.keys(paths).map((path) => {
-    const specName = path
-      .split("/")[1]
-      .split("-")
-      .map((word) => capitalize(word))
-      .join("");
-
     return {
       route: formatPath(path),
-      methods: parseMethods(paths[path], specName),
+      methods: parseMethods(paths[path]),
     };
   });
 }
@@ -202,7 +196,7 @@ function formatPath(path: string): string {
     .join("/");
 }
 
-function parseMethods(methods: DataObject, specName: string) {
+function parseMethods(methods: DataObject) {
   return Object.keys(methods).map((method: string) => ({
     methodName: method,
     ...methods[method],
