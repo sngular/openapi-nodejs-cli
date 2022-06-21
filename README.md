@@ -7,6 +7,7 @@
 <p align="center">
 <a href="#-summary">Summary</a> ·
 <a href="#-getting-started">Getting started</a> ·
+<a href="#-contributing">Contributing</a> ·
 <a href="#-support">Support</a> ·
 <a href="#license">License</a>
 </p>
@@ -55,13 +56,17 @@ Options:
   -h, --help                shows this help
 ```
 
+## 🤝 Contributing
+
+If you want to collaborate with the project, please read our [CONTRIBUTING.md](./CONTRIBUTING.md) where you can find our guidelines
+
 ## 🧰 Support
 
 We’ll be glad to talk and discuss how `openapi-nodejs-cli` can help you 😊
 
 Reach us through [GitHub issues](https://github.com/corunet/openapi-nodejs-cli/issues), [email](mailto:info@corunet.com) or [Twitter](https://twitter.com/corunet).
 
-## License
+## 🔐 License
 
 This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at [https://mozilla.org/MPL/2.0/](https://mozilla.org/MPL/2.0/).
 [![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)](https://github.com/corunet/openapi-nodejs-cli/blob/main/LICENSE)
