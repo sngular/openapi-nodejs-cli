@@ -15,17 +15,17 @@ const app = express();
 {{#methods}}
 {{#if requestBody.required}}
 {{#if parameters}}
-app.{{methodName}}('{{{../route}}}', (req: Request<{ {{#parameters}}{{name}}: {{type}},{{/parameters}} }, {}, {{#with requestBody.content.[application/json]}}{{{this.type}}}{{/with}}>, res: Response) => {
+app.{{methodName}}('{{{../route}}}', (req: Request<{ {{#parameters}}{{name}}: {{getType type}},{{/parameters}} }, {}, {{#with requestBody.content.[application/json]}}{{{getType this.type}}}{{/with}}>, res: Response) => {
 {{/if}}
 {{/if}}
 {{#if requestBody.required}}
 {{#unless parameters}}
-app.{{methodName}}('{{{../route}}}', (req: Request<{}, {}, {{#with requestBody.content.[application/json]}}{{{this.type}}}{{/with}}>, res: Response) => {
+app.{{methodName}}('{{{../route}}}', (req: Request<{}, {}, {{#with requestBody.content.[application/json]}}{{{getType this.type}}}{{/with}}>, res: Response) => {
 {{/unless}}
 {{/if}}
 {{#unless requestBody.required}}
 {{#if parameters}}
-app.{{methodName}}('{{{../route}}}', (req: Request<{ {{#parameters}}{{name}}: {{type}},{{/parameters}} }>, res: Response) => {
+app.{{methodName}}('{{{../route}}}', (req: Request<{ {{#parameters}}{{name}}: {{getType type}},{{/parameters}} }>, res: Response) => {
 {{/if}}
 {{/unless}}
 {{#unless requestBody.required}}
