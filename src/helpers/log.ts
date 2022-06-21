@@ -5,5 +5,6 @@
  */
 export const log = (msg: string, type: string = "info"): void => {
   const time = new Date().toLocaleTimeString();
+  // eslint-disable-next-line no-console
   console.log(`[${type.toUpperCase()}] ${time} - ${msg}`);
 };
