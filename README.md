@@ -23,22 +23,16 @@
 
 This generator requires the Node version >=17.7.1 to run properly
 
-### How to install
-
-```bash
-npm i @corunet/openapi-nodejs-cli --global
-```
-
 ### 🧑🏻‍💻 Usage
 
 ```bash
-openapi-nodejs-cli input/schema.yaml
+npx openapi-nodejs-cli input/schema.yaml
 ```
 
 You can retrieve an option list with this command:
 
 ```bash
-openapi-nodejs-cli --help
+npx openapi-nodejs-cli --help
 ```
 
 ```bash
