@@ -26,7 +26,7 @@
 		"coverage": "jest --coverage",
 		"clean": "rm -rf output",
 		"build": "tsc",
-		"prepublishOnly": "npm run build",
+		"postprepare": "npm run build",
 		"start": "node ./index.js",
 		"lint": "npm run lint:prettier && npm run lint:eslint",
 		"lint:eslint": "eslint --ext .ts .",
