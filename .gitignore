@@ -5,3 +5,8 @@ outputTest
 input
 coverage
 dist
+src/**/*.d.ts
+src/**/*.d.ts.map
+src/**/*.js
+src/**/*.js.map
+*.tsbuildinfo

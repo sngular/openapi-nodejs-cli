@@ -4,7 +4,7 @@
  *  file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
-import { getComponentPath } from "./getComponentPath";
+import { getComponentPath } from "../../helpers/getComponentPath.js";
 
 describe("getComponentPath()", () => {
   describe("when $ref has no schema", () => {
