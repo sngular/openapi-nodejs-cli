@@ -9,9 +9,9 @@
  * @returns {string[]}
  */
 export function resolveSchemaName(refValue: string): string[] {
-  if (!refValue.startsWith("#") && !refValue.includes("#")) {
-    return [refValue];
-  }
+	if (!refValue.startsWith('#') && !refValue.includes('#')) {
+		return [refValue];
+	}
 
-  return refValue.split("/").slice(1);
+	return refValue.split('/').slice(1);
 }
