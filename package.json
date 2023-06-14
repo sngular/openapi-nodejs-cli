@@ -1,61 +1,74 @@
 {
-  "name": "@sngular/openapi-nodejs-cli",
-  "version": "0.4.1",
-  "description": "Generates nodejs, typescript client and Angular client methods from an OpenApi document",
-  "keywords": [
-    "nodejs",
-    "typescript",
-    "openapi",
-    "angular",
-    "api",
-    "generator"
-  ],
-  "license": "Mozilla Public License 2.0",
-  "type": "commonjs",
-  "main": "src/index.js",
-  "bin": "src/index.js",
-  "files": [
-    "src/**/*.{d.ts,d.ts.map,js,js.map}",
-    "CONTRIBUTING.md",
-    "README.md",
-    "LICENSE"
-  ],
-  "scripts": {
-    "test": "jest",
-    "coverage": "jest --coverage",
-    "clean": "rm -rf output",
-    "build": "tsc",
-    "prepublishOnly": "npm run build",
-    "start": "node ./index.js",
-    "format": "prettier --write .",
-    "lint": "eslint src/**/*.ts",
-    "fix": "eslint src/**/*.ts --fix"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/sngular/openapi-nodejs-cli.git"
-  },
-  "devDependencies": {
-    "@types/jest": "^27.5.0",
-    "@types/node": "^17.0.21",
-    "@typescript-eslint/eslint-plugin": "^5.28.0",
-    "@typescript-eslint/parser": "^5.28.0",
-    "eslint": "^8.11.0",
-    "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-react": "^7.30.0",
-    "jest": "^28.1.0",
-    "prettier": "^2.6.0",
-    "ts-jest": "^28.0.2",
-    "typescript": "^4.6.2"
-  },
-  "dependencies": {
-    "axios": "^0.26.1",
-    "commander": "^9.0.0",
-    "handlebars": "^4.7.7",
-    "minimist": "^1.2.6",
-    "yaml": "^1.10.2"
-  },
-  "publishConfig": {
-    "access": "public"
-  }
+	"name": "@sngular/openapi-nodejs-cli",
+	"version": "0.4.1",
+	"description": "Generates nodejs, typescript client and Angular client methods from an OpenApi document",
+	"keywords": [
+		"nodejs",
+		"typescript",
+		"openapi",
+		"angular",
+		"api",
+		"generator"
+	],
+	"license": "Mozilla Public License 2.0",
+	"type": "commonjs",
+	"main": "src/index.js",
+	"bin": "src/index.js",
+	"files": [
+		"src/**/*.{d.ts,d.ts.map,js,js.map}",
+		"CONTRIBUTING.md",
+		"README.md",
+		"LICENSE"
+	],
+	"scripts": {
+		"test": "jest",
+		"coverage": "jest --coverage",
+		"clean": "rm -rf output",
+		"build": "tsc",
+		"prepublishOnly": "npm run build",
+		"start": "node ./index.js",
+		"lint": "npm run lint:prettier && npm run lint:eslint",
+		"lint:eslint": "eslint --ext .ts .",
+		"lint:prettier": "prettier --list-different \"**/*.ts\" || (echo '↑↑ these files are not prettier formatted ↑↑' && exit 1)",
+		"format": "npm run format:prettier && npm run format:eslint",
+		"format:eslint": "npm run lint:eslint -- --fix",
+		"format:prettier": "prettier --write .",
+		"prepare": "husky install",
+		"release": "standard-version"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/sngular/openapi-nodejs-cli.git"
+	},
+	"devDependencies": {
+		"@commitlint/cli": "^17.0.0",
+		"@commitlint/config-conventional": "^17.0.0",
+		"@commitlint/prompt-cli": "^17.0.0",
+		"@types/jest": "^27.5.0",
+		"@types/node": "^17.0.21",
+		"@typescript-eslint/eslint-plugin": "^5.28.0",
+		"@typescript-eslint/parser": "^5.28.0",
+		"eslint": "^8.0.0",
+		"eslint-config-prettier": "^8.0.0",
+		"eslint-plugin-html": "^7.0.0",
+		"eslint-plugin-import": "^2.0.0",
+		"eslint-plugin-markdown": "^3.0.0",
+		"eslint-plugin-prettier": "^4.0.0",
+		"husky": "^8.0.0",
+		"jest": "^29.0.0",
+		"lint-staged": "^13.0.0",
+		"prettier": "^2.0.0",
+		"ts-jest": "^29.0.2",
+		"typescript": ">=3.3.1 <4.8.0"
+	},
+	"dependencies": {
+		"axios": "^0.26.1",
+		"commander": "^9.0.0",
+		"handlebars": "^4.7.7",
+		"minimist": "^1.2.6",
+		"yaml": "^1.10.2"
+	},
+	"publishConfig": {
+		"access": "public"
+	}
 }
