@@ -5,6 +5,6 @@
  */
 
 export const isUrl = (url: string): boolean => {
-  const isUrlRegExp = /^(https?:?)?\/\//;
-  return !!url.match(isUrlRegExp);
+	const isUrlRegExp = /^(https?:?)?\/\//;
+	return !!url.match(isUrlRegExp);
 };

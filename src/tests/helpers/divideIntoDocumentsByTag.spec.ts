@@ -3,21 +3,21 @@
  *  License, v. 2.0. If a copy of the MPL was not distributed with this
  *  file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
-import { DataObjectWith2Tags } from "../mocks/DataObjectWith2Tags.js";
-import { DataObjectWithoutTags } from "../mocks/DataObjectWithoutTags.js";
+import { DataObjectWith2Tags } from '../mocks/DataObjectWith2Tags.js';
+import { DataObjectWithoutTags } from '../mocks/DataObjectWithoutTags.js';
 
-import { divideIntoDocumentsByTag } from "../../helpers/divideIntoDocumentsByTag.js";
+import { divideIntoDocumentsByTag } from '../../helpers/divideIntoDocumentsByTag.js';
 
-describe("divideIntoDocumentsByTag()", () => {
-  describe("passing sample DataObject with 2 different tags", () => {
-    it("expect to return 2 files to save", () => {
-      expect(divideIntoDocumentsByTag(DataObjectWith2Tags).length).toBe(2);
-    });
-  });
+describe('divideIntoDocumentsByTag()', () => {
+	describe('passing sample DataObject with 2 different tags', () => {
+		it('expect to return 2 files to save', () => {
+			expect(divideIntoDocumentsByTag(DataObjectWith2Tags).length).toBe(2);
+		});
+	});
 
-  describe("passing sample DataObject without tags", () => {
-    it("expect to return 1 file to save", () => {
-      expect(divideIntoDocumentsByTag(DataObjectWithoutTags).length).toBe(1);
-    });
-  });
+	describe('passing sample DataObject without tags', () => {
+		it('expect to return 1 file to save', () => {
+			expect(divideIntoDocumentsByTag(DataObjectWithoutTags).length).toBe(1);
+		});
+	});
 });
