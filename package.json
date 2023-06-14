@@ -16,9 +16,10 @@
 	"bin": "src/index.js",
 	"files": [
 		"src/**/*.{d.ts,d.ts.map,js,js.map}",
-		"CONTRIBUTING.md",
+		"LICENSE",
 		"README.md",
-		"LICENSE"
+		"CHANGELOG.md",
+		"CONTRIBUTING.md"
 	],
 	"scripts": {
 		"test": "jest",
@@ -34,7 +35,7 @@
 		"format:eslint": "npm run lint:eslint -- --fix",
 		"format:prettier": "prettier --write .",
 		"prepare": "husky install",
-		"release": "standard-version"
+		"release": "npx standard-version"
 	},
 	"repository": {
 		"type": "git",
@@ -44,6 +45,12 @@
 		"@commitlint/cli": "^17.0.0",
 		"@commitlint/config-conventional": "^17.0.0",
 		"@commitlint/prompt-cli": "^17.0.0",
+		"@semantic-release/changelog": "^6.0.0",
+		"@semantic-release/commit-analyzer": "^9.0.0",
+		"@semantic-release/git": "^10.0.0",
+		"@semantic-release/gitlab": "^9.0.0",
+		"@semantic-release/npm": "^9.0.0",
+		"@semantic-release/release-notes-generator": "^10.0.0",
 		"@types/jest": "^27.5.0",
 		"@types/node": "^17.0.21",
 		"@typescript-eslint/eslint-plugin": "^5.28.0",
