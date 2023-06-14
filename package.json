@@ -1,6 +1,6 @@
 {
   "name": "@sngular/openapi-nodejs-cli",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Generates nodejs, typescript client and Angular client methods from an OpenApi document",
   "keywords": [
     "nodejs",
@@ -11,14 +11,21 @@
     "generator"
   ],
   "license": "Mozilla Public License 2.0",
-  "main": "index.ts",
-  "bin": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": "dist/index.js",
+  "files": [
+    "dist",
+    "CONTRIBUTING.md",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "test": "jest",
     "coverage": "jest --coverage",
     "clean": "rm -rf build output",
     "build": "tsc",
-    "postbuild": "cp src/package.production.json build/openapi-nodejs-cli/package.json && cp README.md build/openapi-nodejs-cli/README.md && cp -R src/templates build/openapi-nodejs-cli/templates && cp LICENSE build/openapi-nodejs-cli/LICENSE",
+    "prepublishOnly": "npm run build",
     "start": "node build/openapi-nodejs-cli/index.js",
     "format": "prettier --write .",
     "lint": "eslint src/**/*.ts",

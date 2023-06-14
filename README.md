@@ -2,7 +2,7 @@
 
 [![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)](https://github.com/sngular/openapi-nodejs-cli/blob/main/LICENSE)
 [![npm version](https://badge.fury.io/js/@sngular%2Fopenapi-nodejs-cli.svg)](https://www.npmjs.com/package/@sngular%2Fopenapi-nodejs-cli)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/13bcbcc9cd144302be8c94999566774f)](https://www.codacy.com/gh/sngular/openapi-nodejs-cli/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=sngular/openapi-nodejs-cli&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/13bcbcc9cd144302be8c94999566774f)](https://www.codacy.com/gh/sngular/openapi-nodejs-cli/dashboard?utm_source=github.com&utm_medium=referral&utm_content=sngular/openapi-nodejs-cli&utm_campaign=Badge_Grade)
 
 <p align="center">
 <a href="#-summary">Summary</a> ·
