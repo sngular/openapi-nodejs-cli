@@ -1,3 +1,8 @@
 node_modules
+build
 output
+outputTest
+input
+coverage
 templates
+dist

@@ -2,11 +2,11 @@ name: NodeJS CI with NPM (PR)
 
 on:
   pull_request:
-    types: [ opened, synchronize, ready_for_review, review_requested, labeled ]
+    types: [opened, synchronize, ready_for_review, review_requested, labeled]
 
 concurrency: pr-${{ github.event.pull_request.id }}
 
-jobs:        
+jobs:
   build:
     runs-on: ubuntu-latest
     steps:
@@ -15,6 +15,7 @@ jobs:
         with:
           node-version: 16
       - run: npm ci
+      - run: npm run lint
 
   check-labels:
     runs-on: ubuntu-latest
