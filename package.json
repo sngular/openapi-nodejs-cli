@@ -11,11 +11,11 @@
     "generator"
   ],
   "license": "Mozilla Public License 2.0",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "bin": "dist/index.js",
+  "type": "commonjs",
+  "main": "src/index.js",
+  "bin": "src/index.js",
   "files": [
-    "dist",
+    "src/**/*.{d.ts,d.ts.map,js,js.map}",
     "CONTRIBUTING.md",
     "README.md",
     "LICENSE"
@@ -23,10 +23,10 @@
   "scripts": {
     "test": "jest",
     "coverage": "jest --coverage",
-    "clean": "rm -rf build output",
+    "clean": "rm -rf output",
     "build": "tsc",
     "prepublishOnly": "npm run build",
-    "start": "node build/openapi-nodejs-cli/index.js",
+    "start": "node ./index.js",
     "format": "prettier --write .",
     "lint": "eslint src/**/*.ts",
     "fix": "eslint src/**/*.ts --fix"

@@ -4,8 +4,8 @@
  *  file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 import axios, { AxiosRequestConfig } from "axios";
-import fs, { PathOrFileDescriptor } from "fs";
-import { getComponentsFiles } from "./getComponentsFiles";
+import fs, { PathOrFileDescriptor } from "node:fs";
+import { getComponentsFiles } from "../../helpers/getComponentsFiles.js";
 
 describe("getComponentsFiles()", () => {
   describe("passing an URL", () => {

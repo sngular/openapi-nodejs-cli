@@ -3,8 +3,8 @@
  *  License, v. 2.0. If a copy of the MPL was not distributed with this
  *  file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
-import fs from "fs";
-import { writeOutputFile } from "./writeOutputFile";
+import fs from "node:fs";
+import { writeOutputFile } from "../../helpers/writeOutputFile.js";
 
 describe("writeOutputFile()", () => {
   describe("when output directory does not exists", () => {
