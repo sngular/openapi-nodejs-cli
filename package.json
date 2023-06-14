@@ -1,6 +1,6 @@
 {
 	"name": "@sngular/openapi-nodejs-cli",
-	"version": "0.4.1",
+	"version": "1.0.0",
 	"description": "Generates nodejs, typescript client and Angular client methods from an OpenApi document",
 	"keywords": [
 		"nodejs",
