@@ -35,7 +35,7 @@
 		"format:eslint": "npm run lint:eslint -- --fix",
 		"format:prettier": "prettier --write .",
 		"prepare": "husky install",
-		"release": "npx standard-version"
+		"release": "npx semantic-release"
 	},
 	"repository": {
 		"type": "git",
