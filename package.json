@@ -15,7 +15,7 @@
 	"main": "src/index.js",
 	"bin": "src/index.js",
 	"files": [
-		"src/**/*.{d.ts,d.ts.map,js,js.map}",
+		"src/**/*.{d.ts,d.ts.map,js,js.map,hbs}",
 		"LICENSE",
 		"README.md",
 		"CHANGELOG.md",
@@ -27,7 +27,8 @@
 		"clean": "rm -rf output",
 		"build": "tsc",
 		"postprepare": "npm run build",
-		"start": "node ./index.js",
+		"prestart": "npm run build",
+		"start": "node .",
 		"lint": "npm run lint:prettier && npm run lint:eslint",
 		"lint:eslint": "eslint --ext .ts .",
 		"lint:prettier": "prettier --list-different \"**/*.ts\" || (echo '↑↑ these files are not prettier formatted ↑↑' && exit 1)",
