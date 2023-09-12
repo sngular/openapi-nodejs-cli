@@ -3,7 +3,7 @@
  *  License, v. 2.0. If a copy of the MPL was not distributed with this
  *  file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
-import { log } from '../../helpers/log.js';
+import { log } from '../../helpers/log';
 
 describe('log()', () => {
 	it('console.log has been called', () => {
