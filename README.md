@@ -32,7 +32,7 @@ npm i @sngular/openapi-nodejs-cli --global
 ### 🧑🏻‍💻 Usage
 
 ```bash
-npx openapi-nodejs-cli input/schema.yaml
+npx openapi-nodejs-cli -i input/schema.yaml
 ```
 
 You can retrieve an option list with this command:
