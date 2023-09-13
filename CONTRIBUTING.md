@@ -36,15 +36,7 @@ project. We encourage you to follow them and help us create a better product!
 To install dependencies, after cloning the repository, run:
 
 ```bash
-npm install
-```
-
-### Clean
-
-To clean output & build path run:
-
-```bash
-npm run clean
+npm ci
 ```
 
 ### Build
@@ -63,6 +55,14 @@ To execute the application run:
 npm start -- -i input/file.yaml
 ```
 
+### Clean
+
+To clean output & build path run:
+
+```bash
+npm run clean
+```
+
 You can find all the options in our [README](./README.md) file
 
 ### Putting all together
@@ -70,7 +70,7 @@ You can find all the options in our [README](./README.md) file
 When you are developing a new feature you must clean output & build path, rebuild the app and execute it. So this is a good command to _remember_:
 
 ```bash
-npm run clean && npm run build && npm start -- -i input/file.yaml
+npm run clean && npm start -- -i input/file.yaml
 ```
 
 ## Pull request process

@@ -24,22 +24,30 @@
 
 This generator requires the Node version >=17.7.1 to run properly
 
-### How to install
+### 🧑🏻‍💻 Usage
+
+You can install it:
 
 ```bash
 npm i @sngular/openapi-nodejs-cli --global
 ```
 
-### 🧑🏻‍💻 Usage
+and use as:
 
 ```bash
 openapi-nodejs-cli -i input/schema.yaml
 ```
 
+or use directly:
+
+```bash
+npx i @sngular/openapi-nodejs-cli -i input/schema.yaml
+```
+
 You can retrieve an option list with this command:
 
 ```bash
-npx openapi-nodejs-cli --help
+openapi-nodejs-cli --help
 ```
 
 ```bash
