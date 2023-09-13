@@ -52,7 +52,7 @@ npm run build
 To execute the application run:
 
 ```bash
-npm start -- -i input/file.yaml
+npm start -- -i example.yaml
 ```
 
 ### Clean
