@@ -24,7 +24,7 @@
 	"scripts": {
 		"test": "jest",
 		"coverage": "jest --coverage",
-		"clean": "rm -rf output outputTest dist",
+		"clean": "rm -rf output",
 		"build": "tsc",
 		"postprepare": "npm run build",
 		"prestart": "npm run build",
