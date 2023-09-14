@@ -9,14 +9,16 @@ import {{@key}} from '../interfaces/{{@key}}.ts';
  */
 
 {{/if}}
+const SERVERS = [
 {{#servers}}
-const SERVER = '{{{url}}}'
+  '{{{url}}}',
 {{/servers}}
+]
 
 {{#paths}}
 {{#methods}}
-export const {{{operationId}}} = async ({{#parameters}}{{name}}: {{getType type}}, {{/parameters}}{{#with requestBody.content.[application/json]}}body: {{{getType this.type}}}{{/with}}){{#responses}}{{#with content.[application/json]}}: {{getType type}}{{/with}}{{/responses}} => {
-    return await axios.{{methodName}}(`${SERVER}{{{../route}}}`{{#requestBody}}, body{{/requestBody}})
+export const {{#if operationId}}{{{operationId}}}{{else}}operation{{@index}}{{/if}} = async ({{#parameters}}{{name}}: {{getType type}}, {{/parameters}}{{#with requestBody.content.[application/json]}}body: {{{getType this.type}}}{{/with}}){{#responses}}{{#with content.[application/json]}}: {{getType type}}{{/with}}{{/responses}} => {
+  return await axios.{{methodName}}(`${SERVERS[0]}{{{../route}}}`{{#requestBody}}, body{{/requestBody}})
 }
 {{/methods}}
 
