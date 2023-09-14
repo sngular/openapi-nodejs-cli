@@ -4,7 +4,7 @@
  *  file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 import fs from 'node:fs';
-import { writeOutputFile } from '../../helpers/writeOutputFile';
+import { writeOutputFile } from '../../helpers/writeOutputFile.js';
 
 describe('writeOutputFile()', () => {
 	describe('when output directory does not exists', () => {

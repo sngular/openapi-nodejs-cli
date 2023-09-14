@@ -5,7 +5,7 @@
  */
 import axios, { AxiosRequestConfig } from 'axios';
 import fs, { PathOrFileDescriptor } from 'node:fs';
-import { getComponentsFiles } from '../../helpers/getComponentsFiles';
+import { getComponentsFiles } from '../../helpers/getComponentsFiles.js';
 
 describe('getComponentsFiles()', () => {
 	describe('passing an URL', () => {
