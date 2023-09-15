@@ -6,14 +6,16 @@ import axios from 'axios'
  */
 
 {{/if}}
+const SERVERS = [
 {{#servers}}
-const SERVER = '{{{url}}}';
+  '{{{url}}}',
 {{/servers}}
+]
 
 {{#paths}}
 {{#methods}}
-export const {{{operationId}}} = async ({{#parameters}}{{name}},{{/parameters}}{{#with requestBody.content.[application/json]}}body{{/with}}) => {
-    return await axios.{{methodName}}(`${SERVER}{{{../route}}}`{{#requestBody}}, body{{/requestBody}})
+export const {{#if operationId}}{{{operationId}}}{{else}}{{methodName}}{{capitalize (removeSymbol ../route)}}{{/if}} = async ({{#parameters}}{{name}},{{/parameters}}{{#with requestBody.content.[application/json]}}body{{/with}}) => {
+    return axios.{{methodName}}(`${SERVERS[0]}{{{../route}}}`{{#requestBody}}, body{{/requestBody}})
 }
 {{/methods}}
 
