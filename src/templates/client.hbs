@@ -17,7 +17,7 @@ const SERVERS = [
 
 {{#paths}}
 {{#methods}}
-export const {{#if operationId}}{{{operationId}}}{{else}}operation{{@index}}{{/if}} = async ({{#parameters}}{{name}}: {{getType type}}, {{/parameters}}{{#with requestBody.content.[application/json]}}body: {{{getType this.type}}}{{/with}}) {{#responses}}{{#with content.[application/json]}}: Promise<{{getType type}}>{{/with}}{{/responses}} => {
+export const {{#if operationId}}{{{operationId}}}{{else}}{{methodName}}{{capitalize (removeSymbol ../route)}}{{/if}} = async ({{#parameters}}{{name}}: {{getType type}}, {{/parameters}}{{#with requestBody.content.[application/json]}}body: {{{getType this.type}}}{{/with}}) {{#responses}}{{#with content.[application/json]}}: Promise<{{getType type}}>{{/with}}{{/responses}} => {
   return axios.{{methodName}}(`${SERVERS[0]}{{{../route}}}`{{#requestBody}}, body{{/requestBody}})
 }
 {{/methods}}
