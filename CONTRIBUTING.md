@@ -1,8 +1,10 @@
 # Contributing
 
 <p align="center">
-  <a href="#best-practices">Best practices</a> ·
-  <a href="#pull-request-process">Pull request process</a>
+<a href="#best-practices">Best practices</a> ·
+<a href="#quickstart">Quickstart</a> ·
+<a href="#pull-request-process">Pull request process</a> ·
+<a href="#code-of-conduct">Code of conduct</a>
 </p>
 
 First of all, thanks for taking the time to contribute!
@@ -26,6 +28,50 @@ project. We encourage you to follow them and help us create a better product!
   should follow this format: issue_ID-and-summary (for example,
   23-add-new-provider).
 - Create commit messages following [conventional commit](https://conventionalcommits.org) specification.
+
+## Quickstart
+
+### Dependencies
+
+To install dependencies, after cloning the repository, run:
+
+```bash
+npm ci
+```
+
+### Build
+
+To build the application, run:
+
+```bash
+npm run build
+```
+
+### Usage
+
+To execute the application run:
+
+```bash
+npm start -- -i example.yaml
+```
+
+### Clean
+
+To clean output & build path run:
+
+```bash
+npm run clean
+```
+
+You can find all the options in our [README](./README.md) file
+
+### Putting all together
+
+When you are developing a new feature you must clean output & build path, rebuild the app and execute it. So this is a good command to _remember_:
+
+```bash
+npm run clean && npm start -- -i input/file.yaml
+```
 
 ## Pull request process
 

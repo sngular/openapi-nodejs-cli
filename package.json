@@ -24,8 +24,8 @@
 	"scripts": {
 		"test": "jest",
 		"coverage": "jest --coverage",
-		"clean": "rm -rf output",
 		"build": "tsc",
+		"build:clean": "tsc --build --clean",
 		"postprepare": "npm run build",
 		"prestart": "npm run build",
 		"start": "node .",
@@ -36,7 +36,8 @@
 		"format:eslint": "npm run lint:eslint -- --fix",
 		"format:prettier": "prettier --write .",
 		"prepare": "husky install",
-		"release": "npx semantic-release"
+		"release": "npx semantic-release",
+		"clean": "rm -rf output outputTest && npm run build:clean"
 	},
 	"repository": {
 		"type": "git",
