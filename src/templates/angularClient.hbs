@@ -16,8 +16,10 @@ import { {{@key}} } from '../interfaces/{{@key}}.ts';
 })
 export class {{tagname}}Service {
     private servers: string[] = [
-    {{#servers}}'{{{url}}}',
-    {{/servers}}]
+{{#servers}}
+        '{{{url}}}',
+{{/servers}}
+    ]
 
     private readonly headers: HttpHeaders = new HttpHeaders();
 

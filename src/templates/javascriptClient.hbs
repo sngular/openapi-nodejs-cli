@@ -15,7 +15,7 @@ const SERVERS = [
 {{#paths}}
 {{#methods}}
 export const {{#if operationId}}{{{operationId}}}{{else}}{{methodName}}{{capitalize (removeSymbol ../route)}}{{/if}} = async ({{#parameters}}{{name}},{{/parameters}}{{#with requestBody.content.[application/json]}}body{{/with}}) => {
-    return axios.{{methodName}}(`${SERVERS[0]}{{{../route}}}`{{#requestBody}}, body{{/requestBody}})
+  return axios.{{methodName}}(`${SERVERS[0]}{{{../route}}}`{{#requestBody}}, body{{/requestBody}})
 }
 {{/methods}}
 
