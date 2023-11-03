@@ -4,6 +4,7 @@ module.exports = {
 		'plugin:prettier/recommended',
 		'plugin:import/recommended',
 		'plugin:markdown/recommended',
+		'plugin:@typescript-eslint/eslint-recommended',
 		'plugin:@typescript-eslint/recommended',
 	],
 	plugins: ['@typescript-eslint', 'prettier', 'import', 'html', 'markdown'],
@@ -17,10 +18,17 @@ module.exports = {
 		ecmaVersion: 'latest',
 		sourceType: 'module',
 	},
-	ignorePatterns: ['output', 'outputTest', '**/*d.ts'],
+	ignorePatterns: ['output', 'outputTest', 'dist'],
 	rules: {
 		'@typescript-eslint/ban-ts-comment': ['error', { 'ts-ignore': 'allow-with-description' }],
 		indent: ['error', 'tab', { SwitchCase: 1 }],
+	},
+	settings: {
+		'import/resolver': {
+			node: {
+				extensions: ['.js', '.jsx', '.ts', '.tsx'],
+			},
+		},
 	},
 	overrides: [
 		{
