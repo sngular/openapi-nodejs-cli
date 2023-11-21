@@ -3,9 +3,10 @@
  *  License, v. 2.0. If a copy of the MPL was not distributed with this
  *  file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
-import axios, { AxiosRequestConfig } from 'axios';
+import axios from 'axios';
 import fs, { PathOrFileDescriptor } from 'node:fs';
 import { getComponentsFiles } from '../../helpers/getComponentsFiles.js';
+import type { AxiosRequestConfig } from 'axios';
 
 describe('getComponentsFiles()', () => {
 	describe('passing an URL', () => {
