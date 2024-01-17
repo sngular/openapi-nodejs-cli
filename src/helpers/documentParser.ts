@@ -4,6 +4,7 @@
  *  file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 import { resolveSchemaName, parseTypes } from '.';
+import { OPEN_API_OPERATIONS } from '../const';
 import { DataObject, Path } from '../types';
 
 export function parseDocument(data: DataObject) {
@@ -173,10 +174,15 @@ function formatPath(path: string): string {
 }
 
 function parseMethods(methods: DataObject) {
-	return Object.keys(methods).map((method: string) => ({
-		methodName: method,
-		...methods[method],
-	}));
+	const parsedMethods = Object.keys(methods).map((method: string) => {
+		if (OPEN_API_OPERATIONS.includes(method)) {
+			return {
+				methodName: method,
+				...methods[method],
+			};
+		}
+	});
+	return parsedMethods.filter((method) => method !== undefined);
 }
 
 function parseResponses(responses: DataObject) {
