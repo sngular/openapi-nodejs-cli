@@ -1,0 +1,54 @@
+name: Verify changes
+
+on: pull_request
+
+permissions:
+  contents: read # for checkout
+
+jobs:
+  verify:
+    name: Verify changes
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 'lts/*'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install Dependencies
+        run: npm install --ci
+
+      - name: Lint
+        run: npm run lint
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18, 20, 'latest']
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm install --ci
+
+      - name: Test
+        run: npm run test
